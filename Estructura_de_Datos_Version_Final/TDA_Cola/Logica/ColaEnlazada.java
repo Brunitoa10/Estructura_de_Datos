@@ -2,6 +2,7 @@ package Logica;
 
 import Excepciones.EmptyQueueException;
 import Interfaces.Queue;
+//import Logica.Nodo;
 
 public class ColaEnlazada<E> implements Queue<E>{
 	//Equiv a ColaConPila del tp solo cambie el nombre
