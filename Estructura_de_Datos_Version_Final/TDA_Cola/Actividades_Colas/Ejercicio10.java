@@ -1,16 +1,18 @@
-package TDACola;
+package Actividades_Colas;
 
 import Excepciones.EmptyQueueException;
 import Excepciones.EmptyStackException;
-import TDAPila.PilaEnlazada;
-import TDAPila.Stack;
+import Interfaces.Queue;
+import Logica.ColaEnlazada;
+import Logica.PilaEnlazada;
+import Interfaces.Stack;
 
 public class Ejercicio10 {
 	public static boolean  validarCadena(String entrada) throws EmptyStackException, EmptyQueueException {
 		boolean cumple = true;
 		
 		
-		Queue<Character> col1 = new ColaEnlazada<Character>();
+		Queue<Character> col1 =  new ColaEnlazada<Character>();
 		Queue<Character> col2 = new ColaEnlazada<Character>();
 		Stack<Character> pilAux = new PilaEnlazada<Character>();
 		Stack<Character> pil = new PilaEnlazada<Character>();

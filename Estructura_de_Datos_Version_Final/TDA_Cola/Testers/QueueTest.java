@@ -1,4 +1,4 @@
-package TDACola;
+package Testers;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import Excepciones.EmptyQueueException;
+import Interfaces.Queue;
+import Logica.ColaEnlazada;
 
 
 public class QueueTest {

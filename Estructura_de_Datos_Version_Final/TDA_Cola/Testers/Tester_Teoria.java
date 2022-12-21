@@ -1,6 +1,8 @@
-package TDACola;
+package Testers;
 
 import Excepciones.EmptyQueueException;
+import Interfaces.Queue;
+import Logica.ColaEnlazada;
 
 public class Tester_Teoria {
 	public static void main (String a[]) {

@@ -1,4 +1,4 @@
-package TDACola;
+package Interfaces;
 
 import Excepciones.EmptyQueueException;
 
@@ -7,8 +7,7 @@ import Excepciones.EmptyQueueException;
  * @author C�tedra de Estructuras de Datos, Departamento de Cs. e Ing. de la Computaci�n, UNS.
  */
 
-public interface Queue <E>
-{
+public interface Queue <E>{
 	/**
 	 * Devuelve la cantidad de elementos en la cola.
 	 * @return Cantidad de elementos en la cola.

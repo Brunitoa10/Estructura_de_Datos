@@ -1,9 +1,9 @@
-package TDAPila;
+package Logica;
 
 import Excepciones.EmptyStackException;
+import Interfaces.Stack;
 
-public class PilaArreglo<E> implements Stack<E>
-{
+public class PilaArreglo<E> implements Stack<E>{
 	//Atributos de clase
 		//No tiene
 	
@@ -20,8 +20,7 @@ public class PilaArreglo<E> implements Stack<E>
 	 */
 	
 	@SuppressWarnings("unchecked")
-	public PilaArreglo(int max) 
-	{
+	public PilaArreglo(int max) {
 		pA = (E[]) new Object[max]; 
 		cantElem = -1;
 	}
@@ -41,10 +40,8 @@ public class PilaArreglo<E> implements Stack<E>
 	 * @return Si la pìla esta llena reporta ERROR
 	 * @return Sino inserta 'e' en la posicion libre y incrementa longiutd
 	 */
-	public void push (E elem)
-	{
-		if( cantElem == pA.length - 1) 
-		{
+	public void push (E elem){
+		if( cantElem == pA.length - 1) {
 			expandirTamanioArreglo();
 		}else {
 			pA[++cantElem] = elem;
@@ -63,21 +60,17 @@ public class PilaArreglo<E> implements Stack<E>
 	}
 	
 	//Consultas
-	public boolean isEmpty ()
-	{
+	public boolean isEmpty (){
 		return size() == 0;
 	}	
 	
-	public E pop () throws EmptyStackException
-	{
+	public E pop () throws EmptyStackException{
 		E aux = null;
 		E salida = null;
 		
-		if (isEmpty()) 
-		{
+		if (isEmpty()) {
 			throw new EmptyStackException("Pila Vacia.");
-		}else 
-		{
+		}else {
 			aux = pA[cantElem];
 			pA[cantElem] = null;
 			cantElem--;
@@ -86,14 +79,11 @@ public class PilaArreglo<E> implements Stack<E>
 	 return salida;
 	}//T(n) = O(1)
 	
-	public E top() throws EmptyStackException
-	{
+	public E top() throws EmptyStackException{
 		E salida;
-		if (isEmpty()) 
-		{
+		if (isEmpty()) {
 			throw new EmptyStackException("Pila Vacia.");
-		}else 
-		{
+		}else {
 			salida = pA[cantElem];
 		}
 		return salida;
@@ -101,8 +91,7 @@ public class PilaArreglo<E> implements Stack<E>
 	
 	public int size() {return cantElem + 1;}
 
-	public void invertir() 
-	{
+	public void invertir() {
 		Stack<E> Pila1, Pila2;
 		Pila1 = new PilaArreglo<E>();
 		Pila2 = new PilaArreglo<E>();
@@ -111,18 +100,13 @@ public class PilaArreglo<E> implements Stack<E>
 		pasar(Pila2,this);
 	} 
 	//Pasa el contenido de Pila1 a Pila2
-	private void pasar (Stack<E> p1, Stack<E> p2) 
-	{
+	private void pasar (Stack<E> p1, Stack<E> p2) {
 		try{
-			while (!p1.isEmpty()) 
-			{
+			while (!p1.isEmpty()) {
 				p2.push(p1.pop());
 			}
-		}catch(EmptyStackException e) 
-		{
+		}catch(EmptyStackException e) {
 			System.out.println(e.getMessage());;
 		}
 	}
-	
-	
 }

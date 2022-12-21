@@ -1,6 +1,7 @@
-package TDAPila;
+package Testers;
 
 import Excepciones.EmptyStackException;
+import Logica.PilaArreglo;
 
 public class TesterBuenaGente {
 	public static void main (String a[]) {

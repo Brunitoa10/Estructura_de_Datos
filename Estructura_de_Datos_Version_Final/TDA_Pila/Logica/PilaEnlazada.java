@@ -1,6 +1,7 @@
-package TDAPila;
+package Logica;
 
 import Excepciones.EmptyStackException;
+import Interfaces.Stack;
 
 public class PilaEnlazada<E> implements Stack<E>{
 	
@@ -11,16 +12,14 @@ public class PilaEnlazada<E> implements Stack<E>{
 	
 	//Constructor
 	
-	public PilaEnlazada()
-	{
+	public PilaEnlazada(){
 		head = null;
 		tamanio = 0;
 	}
 	
 	//Comandos
 	
-	public void push(E elem) 
-	{
+	public void push(E elem) {
 		Nodo<E> aux = new Nodo<E>(elem,head);
 		head = aux;
 		tamanio++;
@@ -28,17 +27,14 @@ public class PilaEnlazada<E> implements Stack<E>{
 	
 	//Consultas
 	
-	public boolean isEmpty() 
-	{
+	public boolean isEmpty() {
 		return head == null;
 	}//T(n) --> O(1)
 	
-	public E pop() throws EmptyStackException
-	{
+	public E pop() throws EmptyStackException{
 		E aux = null;
 		E salida = null;
-		if (isEmpty()) 
-		{
+		if (isEmpty()) {
 			throw new EmptyStackException("PilaEnlazada Vacia.");
 		}else {
 			aux = head.getElem();
@@ -55,9 +51,8 @@ public class PilaEnlazada<E> implements Stack<E>{
 	}
 
 	@Override
-	public E top() throws EmptyStackException{
-		if (isEmpty()) 
-		{
+	public E top() throws EmptyStackException {
+		if (isEmpty()) {
 			throw new EmptyStackException("PilaEnlazada Vacia.");
 		}
 	return head.getElem();

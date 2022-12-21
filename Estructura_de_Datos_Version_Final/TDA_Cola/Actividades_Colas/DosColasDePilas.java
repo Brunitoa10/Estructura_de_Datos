@@ -1,9 +1,11 @@
-package TDACola;
+package Actividades_Colas;
 
 import Excepciones.EmptyQueueException;
 import Excepciones.EmptyStackException;
-import TDAPila.PilaEnlazada;
-import TDAPila.Stack;
+import Interfaces.Queue;
+import Interfaces.Stack;
+import Logica.ColaEnlazada;
+
 
 
 public class DosColasDePilas{	

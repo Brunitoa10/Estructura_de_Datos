@@ -6,10 +6,12 @@
  *  @version: 2.0
  */
 
-package TDAPila;
+package Testers;
 import org.junit.*;                         //For tags
 
 import Excepciones.EmptyStackException;
+import Interfaces.Stack;
+import Logica.PilaEnlazada;
 
 import static org.junit.Assert.*;           //For assertions
 
@@ -19,8 +21,7 @@ public class StackTest {
 	private String n1,n2,n3;
  
 
-	private Stack<String> getStack()
-	{
+	private Stack<String> getStack(){
 	  return new PilaEnlazada<String>();
 	  
 	 }
@@ -29,8 +30,8 @@ public class StackTest {
 	 *Inicializa la pila antes de cada test individual
 	 *
 	 */
-	@Before public void setUp()
-	{   s  = getStack();
+	@Before public void setUp(){
+		s  = getStack();
 		n1 = "Uno";
 		n2 = "Dos";
 		n3 = "Tres";
@@ -38,8 +39,8 @@ public class StackTest {
 	}
 	/*_______________________TESTEAMOS EL METODO size()_____________________________*/
 	
-	@Test public void size1()
-		{
+	@Test public void size1(){
+		
 			assertTrue("Tama�o de la pila justo despu�s de ser creada != 0",s.size() == 0);
 		  s.push(n1);
 			assertTrue("Tama�o de la pila luego de apilar una vez != 1", s.size() == 1);

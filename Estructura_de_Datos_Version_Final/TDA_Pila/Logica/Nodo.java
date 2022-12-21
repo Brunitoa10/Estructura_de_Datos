@@ -1,12 +1,10 @@
-package TDAPila;
+package Logica;
 
-public class Nodo <E>
-{
+public class Nodo <E>{
 	private E elemento;
 	private Nodo <E> siguiente;
 	
-	public Nodo(E elem, Nodo<E> sig)//(1) 
-	{
+	public Nodo(E elem, Nodo<E> sig){//(1) 
 		elemento = elem;
 		siguiente = sig;
 	}
