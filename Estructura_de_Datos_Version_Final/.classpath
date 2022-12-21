@@ -6,8 +6,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="A_TDA_Pila"/>
-	<classpathentry kind="src" path="B_TDA_Cola"/>
-	<classpathentry kind="src" path="C_Excepciones"/>
+	<classpathentry kind="src" path="B_TDA_Pila"/>
+	<classpathentry kind="src" path="C_TDA_Cola"/>
+	<classpathentry kind="src" path="A_Excepciones"/>
+	<classpathentry kind="src" path="D_TDA_Lista"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
