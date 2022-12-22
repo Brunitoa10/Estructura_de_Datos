@@ -1,70 +1,121 @@
 package Interfaces;
 
+import java.util.Iterator;
+
 import Excepciones.*;
 
-public interface PositionList<E> {
-	
-	/* Retorna la cantidad de elementos de la lista
-	 * @return Cantidad de elementos de la lista
+/**
+ * Interface PositionList
+ * @author C�tedra de Estructuras de Datos, Departamento de Cs. e Ing. de la Computaci�n, UNS.
+ */
+
+public interface PositionList<E> extends Iterable<E>
+{
+	/**
+	 * Consulta la cantidad de elementos de la lista.
+	 * @return Cantidad de elementos de la lista.
 	 */
-	public int size();
+	public int size(); 
 	
-	/* Retorna true si la lista esta vacia o false de lo contrario.
-	 * @return true or false
+	/**
+	 * Consulta si la lista est� vac�a.
+	 * @return Verdadero si la lista est� vac�a, falso en caso contrario.
 	 */
 	public boolean isEmpty();
 	
-	/* Retorna la posicion del primer elemento de la lista, produce error si la lista esta vacia
-	 * @return Posicion del primer elemeneto de la lista
-	 * @throws EmptyListException
+	/**
+	 * Devuelve la posici�n del primer elemento de la lista. 
+	 * @return Posici�n del primer elemento de la lista.
+	 * @throws EmptyListException si la lista est� vac�a.
 	 */
 	public Position<E> first() throws EmptyListException;
 	
-	/* Retorna la posicion del ultimo elemento de la lista, produce error si la lista esta vacia
-	 * @return Posicion del ultimo elemeneto de la lista
-	 * @throws EmptyListException
+	/**
+	 * Devuelve la posici�n del �ltimo elemento de la lista. 
+	 * @return Posici�n del �ltimo elemento de la lista.
+	 * @throws EmptyListException si la lista est� vac�a.
+	 * 
 	 */
-	public Position<E> last() throws EmptyListException;
+	public Position<E> last() throws EmptyListException;;
 	
-	/* Retorna la posicion del elemento que precede al elemento de la posicion p, produce error si p = first()
-	 * @return Previo a p
-	 * @throws BoundaryViolationException o InvalidPositionException
+	/**
+	 * Devuelve la posici�n del elemento siguiente a la posici�n pasada por par�metro.
+	 * @param p Posici�n a obtener su elemento siguiente.
+	 * @return Posici�n del elemento siguiente a la posici�n pasada por par�metro.
+	 * @throws InvalidPositionException si el posici�n pasada por par�metro es inv�lida o la lista est� vac�a.
+	 * @throws BoundaryViolationException si la posici�n pasada por par�metro corresponde al �ltimo elemento de la lista.
 	 */
-	public Position<E> prev(Position<E> p) throws BoundaryViolationException,InvalidPositionException;
-
-	/* Retorna la posicion del elemento que sigue al elemento de la posicion p, produce error si p = last()
-	 * @return Siguiente a p
-	 * @throws BoundaryViolationException o InvalidPositionException
-	 */
-	public Position<E> next(Position<E> p) throws BoundaryViolationException,InvalidPositionException;
+	public Position<E> next(Position<E> p) throws InvalidPositionException, BoundaryViolationException;
 	
-	/* Reemplaza al elemento en la posicion p con e, retorna el elemento que estaba antes en la posicion p
-	 * @return Elemento 'e' de la posicion 'p' antes de ser modificado
-	 * @throws InvalidPositionException
+	/**
+	 * Devuelve la posici�n del elemento anterior a la posici�n pasada por par�metro.
+	 * @param p Posici�n a obtener su elemento anterior.
+	 * @return Posici�n del elemento anterior a la posici�n pasada por par�metro. O(1) + C2 + (O(n)+C3) + C4 + C5 --> O(n)  CONSULTAR
+	 * @throws InvalidPositionException si la posici�n pasada por par�metro es inv�lida o la lista est� vac�a.
+	 * @throws BoundaryViolationException si la posici�n pasada por par�metro corresponde al primer elemento de la lista.
 	 */
-	public E set(Position<E> p, E e) throws InvalidPositionException;
-
-	/* Elimina y retorna el elemento en la posicion p, invalidando la posicion p
-	 * @return Elemento 'e' de la posicion 'p'
-	 * @throws InvalidPositionException
+	public Position<E> prev(Position<E> p) throws InvalidPositionException, BoundaryViolationException;
+	
+	/**
+	 * Inserta un elemento al principio de la lista.
+	 * @param element Elemento a insertar al principio de la lista.
+	 * @return O(1)
 	 */
+	public void addFirst(E element);
+	
+	/**
+	 * Inserta un elemento al final de la lista.
+	 * @param element Elemento a insertar al final de la lista.
+	 * @return O(1) + (c1 + O(n) + O(1)) --> O(1) + (O(n) + O(1)) --> O(n) CONSULTAR
+	 */
+	public void addLast(E element);
+	
+	/**
+	 * Inserta un elemento luego de la posici�n pasada por par�matro.
+	 * @param p Posici�n en cuya posici�n siguiente se insertar� el elemento pasado por par�metro.
+	 * @param element Elemento a insertar luego de la posici�n pasada como par�metro.
+	 * @throws InvalidPositionException si la posici�n es inv�lida o la lista est� vac�a.
+	 */
+	public void addAfter(Position<E> p, E element) throws InvalidPositionException;
+	
+	/**
+	 * Inserta un elemento antes de la posici�n pasada como par�metro.
+	 * @param p Posici�n en cuya posici�n anterior se insertar� el elemento pasado por par�metro. 
+	 * @param element Elemento a insertar antes de la posici�n pasada como par�metro.
+	 * @throws InvalidPositionException si la posici�n es inv�lida o la lista est� vac�a.
+	 */
+	public void addBefore(Position<E> p, E element) throws InvalidPositionException;
+	
+	/**
+	 * Remueve el elemento que se encuentra en la posici�n pasada por par�metro.
+	 * @param p Posici�n del elemento a eliminar.
+	 * @return element Elemento removido.
+	 * @throws InvalidPositionException si la posici�n es inv�lida o la lista est� vac�a.
+	 */	
 	public E remove(Position<E> p) throws InvalidPositionException;
 
-	/* Inserta un nuevo elemento 'e' como primer elemento
-	 */
-	public void addFirst(E e);
-
-	/* Inserta un nuevo elemento 'e' como ultimo elemento
-	 */
-	public void addLast(E e);
+	/**
 	
-	/* Inserta un nuevo elemento 'e' antes de la posicion 'p'
-	 * @throws InvalidPositionException
+	 * Establece el elemento en la posici�n pasados por par�metro. Reemplaza el elemento que se encontraba anteriormente en esa posici�n y devuelve el elemento anterior.
+	 * @param p Posici�n a establecer el elemento pasado por par�metro.
+	 * @param element Elemento a establecer en la posici�n pasada por par�metro.
+	 * @return Elemento anterior.
+	 * @throws InvalidPositionException si la posici�n es inv�lida o la lista est� vac�a.	 
+	 * 
 	 */
-	public void addBefore(Position<E> p,E e) throws InvalidPositionException;
+	public E set(Position<E> p, E element) throws InvalidPositionException, BoundaryViolationException;
+	
+	/**
+	 * Devuelve un un iterador de todos los elementos de la lista.
+	 * @return Un iterador de todos los elementos de la lista.
+	 */
+	public Iterator<E> iterator();
+	
+	/**
+	 * Devuelve una colecci�n iterable de posiciones.
+	 * @return Una colecci�n iterable de posiciones.
+	 */
+	public Iterable<Position<E>> positions();
 
-	/* Inserta un nuevo elemento 'e' luego de la posicion 'p'
-	 * @throws InvalidPositionException
-	 */
-	public E addAfter(Position<E> p) throws InvalidPositionException;
+	
 }
