@@ -11,7 +11,7 @@ import Interfaces.PositionList;
 public class listaSimplementeEnlazada<E> implements PositionList<E>{
 
 	//Atributos de instancia
-	protected Nodo<E> head;
+	protected NodoLista<E> head;
 	protected int size;
 	
 	//Constructor
@@ -34,11 +34,12 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 
 	@Override
 	public Position<E> first() throws EmptyListException {
-		if(isEmpty()) {
-			throw new EmptyListException ("Error: Lista vacia.")
-		}
+		// TODO Auto-generated method stub
+		if (head == null)
+			throw new EmptyListException("Error: Lista Vacia.");
 		return head;
 	}
+
 
 	@Override
 	public Position<E> last() throws EmptyListException {

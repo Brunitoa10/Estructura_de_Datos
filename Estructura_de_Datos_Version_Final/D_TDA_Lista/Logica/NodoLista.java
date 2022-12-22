@@ -2,7 +2,7 @@ package Logica;
 
 import Interfaces.Position;
 
-public class Nodo<E> implements Position<E> {
+public class NodoLista<E> implements Position<E> {
 	
 	private E elemento;
 	private Nodo<E> siguiente;
