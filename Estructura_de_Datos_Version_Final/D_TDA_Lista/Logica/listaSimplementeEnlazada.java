@@ -34,41 +34,75 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 
 	@Override
 	public Position<E> first() throws EmptyListException {
-		// TODO Auto-generated method stub
-		if (head == null)
-			throw new EmptyListException("Error: Lista Vacia.");
+		if (isEmpty())
+			throw new EmptyListException("Error (First()): Lista Vacia.");
 		return head;
 	}
 
 
 	@Override
 	public Position<E> last() throws EmptyListException {
-		// TODO Auto-generated method stub
-		return null;
+		if(isEmpty()) {
+			throw new EmptyListException("Error (Last()): Lista Vacia.");
+		}
+		NodoLista<E> retorno = head;
+		while(retorno.getSiguiente() != null) {
+			retorno = retorno.getSiguiente();
+		}
+		return retorno;
 	}
 
 	@Override
 	public Position<E> next(Position<E> p) throws InvalidPositionException, BoundaryViolationException {
-		// TODO Auto-generated method stub
-		return null;
+		NodoLista<E> nodoList = checkPosition(p);
+		if(nodoList.getSiguiente() == null) {
+			throw new BoundaryViolationException("No se puede pedir el siguiente al ultimo elemento");
+		}
+		return nodoList.getSiguiente();
 	}
-
+	private NodoLista<E> checkPosition(Position<E> p) throws InvalidPositionException{
+		NodoLista<E> retorno = null;
+		try {
+			retorno = (NodoLista<E>) p;
+		}catch(ClassCastException e) {
+			throw new InvalidPositionException("Error: Posicion Invalida");
+		}
+		return retorno;
+	}
 	@Override
 	public Position<E> prev(Position<E> p) throws InvalidPositionException, BoundaryViolationException {
-		// TODO Auto-generated method stub
-		return null;
+		checkPosition(p);
+		if(p == head) {
+			throw new InvalidPositionException("p es la primera posicion.");
+		}
+		NodoLista<E> retorno = head;
+		while(retorno.getSiguiente() != p && retorno.getSiguiente() != null) {
+			retorno = retorno.getSiguiente();
+		}
+		if(retorno.getSiguiente() == null) {
+			throw new InvalidPositionException("Error: La posicion 'p' no pertenece a la lista.");
+		}
+		return retorno;
 	}
 
 	@Override
 	public void addFirst(E element) {
-		// TODO Auto-generated method stub
-		
+		head = new NodoLista<E>(element,head);
+		size++;
 	}
 
 	@Override
 	public void addLast(E element) {
-		// TODO Auto-generated method stub
-		
+		if(isEmpty()) {
+			addFirst(element);
+		}else {
+			NodoLista<E> p = head;
+			while(p.getSiguiente() != null) {
+				p = p.getSiguiente();
+			}
+			p.setSiguiente(new NodoLista<E>(element));
+			size++;
+		}
 	}
 
 	@Override

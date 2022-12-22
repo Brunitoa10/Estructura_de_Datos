@@ -5,14 +5,14 @@ import Interfaces.Position;
 public class NodoLista<E> implements Position<E> {
 	
 	private E elemento;
-	private Nodo<E> siguiente;
+	private NodoLista<E> siguiente;
 	
-	public Nodo(E item, Nodo<E> sig) {
+	public NodoLista(E item, NodoLista<E> sig) {
 		elemento= item;
 		siguiente = sig;
 	}
 	
-	public Nodo(E item) {
+	public NodoLista(E item) {
 		this(item,null);
 	}
 	
@@ -21,7 +21,7 @@ public class NodoLista<E> implements Position<E> {
 		this.elemento = elemento;
 	}
 	
-	public void setSiguiente(Nodo<E> siguiente) {
+	public void setSiguiente(NodoLista<E> siguiente) {
 		this.siguiente = siguiente;
 	}
 	
@@ -30,7 +30,7 @@ public class NodoLista<E> implements Position<E> {
 		return elemento;
 	}
 	
-	public Nodo<E> getSiguiente(){
+	public NodoLista<E> getSiguiente(){
 		return siguiente;
 	}
 	

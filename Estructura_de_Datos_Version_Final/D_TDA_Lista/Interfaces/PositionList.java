@@ -30,7 +30,7 @@ public interface PositionList<E> extends Iterable<E>{
 	public Position<E> first() throws EmptyListException;
 	
 	/**
-	 * Devuelve la posici�n del �ltimo elemento de la lista. 
+	 * Devuelve la posicion del ultimo elemento de la lista. 
 	 * @return Posici�n del �ltimo elemento de la lista.
 	 * @throws EmptyListException si la lista est� vac�a.
 	 * 
@@ -65,7 +65,7 @@ public interface PositionList<E> extends Iterable<E>{
 	/**
 	 * Inserta un elemento al final de la lista.
 	 * @param element Elemento a insertar al final de la lista.
-	 * @return O(1) + (c1 + O(n) + O(1)) --> O(1) + (O(n) + O(1)) --> O(n) CONSULTAR
+	 * @return T_addlast(n) = O(n)
 	 */
 	public void addLast(E element);
 	
