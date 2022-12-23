@@ -107,8 +107,11 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 
 	@Override
 	public void addAfter(Position<E> p, E element) throws InvalidPositionException {
-		// TODO Auto-generated method stub
-		
+		NodoLista<E> nodo = checkPosition(p);
+		NodoLista<E> nuevoNodo = new NodoLista<E>(element);
+		nuevoNodo.setSiguiente(nodo.getSiguiente());
+		nodo.setSiguiente(nuevoNodo);
+		size++;
 	}
 
 	@Override
