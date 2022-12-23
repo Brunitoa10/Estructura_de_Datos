@@ -1,5 +1,5 @@
 package C_TDA_Cola;
-import Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyQueueException;
 /**
  * Clase ColaConArregloCircular. 
  * Implementa interfaz Queue, con una cola circular.

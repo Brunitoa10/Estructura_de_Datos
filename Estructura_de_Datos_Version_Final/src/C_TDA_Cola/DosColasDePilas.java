@@ -1,8 +1,8 @@
 package C_TDA_Cola;
 
 import B_TDA_Pila.Stack;
-import Excepciones.EmptyQueueException;
-import Excepciones.EmptyStackException;
+import A_Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyStackException;
 
 
 

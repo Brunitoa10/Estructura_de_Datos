@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyQueueException;
 
 
 public class QueueTest {

@@ -1,7 +1,7 @@
 package C_TDA_Cola;
 
 import B_TDA_Pila.Nodo;
-import Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyQueueException;
 
 public class ColaEnlazada<E> implements Queue<E>{
 	//Equiv a ColaConPila del tp solo cambie el nombre

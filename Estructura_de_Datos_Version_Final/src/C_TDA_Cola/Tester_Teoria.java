@@ -1,6 +1,6 @@
 package C_TDA_Cola;
 
-import Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyQueueException;
 
 public class Tester_Teoria {
 	public static void main (String a[]) {
