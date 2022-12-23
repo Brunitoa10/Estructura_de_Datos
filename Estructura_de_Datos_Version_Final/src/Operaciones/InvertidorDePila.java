@@ -1,6 +1,12 @@
-package B_TDA_Pila;
+package Operaciones;
 
 import A_Excepciones.EmptyStackException;
+import B_TDA_Pila.PilaEnlazada;
+import B_TDA_Pila.Stack;
+
+/*No tiene acceso de forma directa a la estructura
+ * sino que usa los metodos definidos en la interface
+ */
 
 public class InvertidorDePila{
 	

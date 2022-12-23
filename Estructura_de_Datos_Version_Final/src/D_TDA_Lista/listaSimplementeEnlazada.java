@@ -180,31 +180,29 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 	        return aux;
 	    }
 
-		//ver video de ana
+		//ver video de ana (Listo ya chequeado, todo ok)
 		@Override
 		public Iterator<E> iterator() {
+			//Genero un iterador de la lista actual
 			return (new IteradorListaSobreEdOriginal<E>(this));
 		}
 
 		@Override
 		public Iterable<Position<E>> positions() {
-			PositionList<Position<E>> col = new listaSimplementeEnlazada<Position<E>>();
-			Position<E> p = null;
-			
-			try{
-				if(!isEmpty()){
-					p = first();
-				}else{
-					return col;
-				}
-				while(p != last()){
-					col.addLast(p);
-					p = next(p);
-				}
-				col.addLast(p);
-			}catch(BoundaryViolationException | InvalidPositionException | EmptyListException e){
-				e.printStackTrace();
+			//Creo una lista que guarde las posiciones
+			PositionList<Position<E>> p = new listaSimplementeEnlazada<Position<E>>();
+			try {
+				if(!isEmpty()) {
+					Position<E> pos = first();
+					while(pos != last()) {
+						p.addLast(pos);
+						pos = next(pos);
+					}
+					p.addLast(pos);
+				}	
+			} catch (EmptyListException | InvalidPositionException | BoundaryViolationException e) {
+					e.printStackTrace();
 			}
-			return col;
-		}	
+			return p;
+		}		
 }

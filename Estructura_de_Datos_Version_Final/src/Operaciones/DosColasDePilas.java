@@ -1,6 +1,8 @@
-package C_TDA_Cola;
+package Operaciones;
 
 import B_TDA_Pila.Stack;
+import C_TDA_Cola.ColaEnlazada;
+import C_TDA_Cola.Queue;
 import A_Excepciones.EmptyQueueException;
 import A_Excepciones.EmptyStackException;
 

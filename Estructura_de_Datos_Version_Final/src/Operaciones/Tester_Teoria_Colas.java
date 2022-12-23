@@ -1,8 +1,10 @@
-package C_TDA_Cola;
+package Operaciones;
 
 import A_Excepciones.EmptyQueueException;
+import C_TDA_Cola.ColaEnlazada;
+import C_TDA_Cola.Queue;
 
-public class Tester_Teoria {
+public class Tester_Teoria_Colas {
 	public static void main (String a[]) {
 		try {
 			Queue<Integer> q = new ColaEnlazada<Integer>();
@@ -11,7 +13,7 @@ public class Tester_Teoria {
 				q.enqueue(i);
 			}
 			while (!q.isEmpty()) {
-				System.out.println(q.dequeue());
+				System.out.print(q.dequeue()+" ");
 			}
 		}catch(EmptyQueueException e) {
 			System.out.println(e.getMessage());
