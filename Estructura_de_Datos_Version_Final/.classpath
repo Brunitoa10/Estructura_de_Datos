@@ -10,7 +10,6 @@
 	<classpathentry kind="src" path="C_TDA_Cola"/>
 	<classpathentry kind="src" path="A_Excepciones"/>
 	<classpathentry kind="src" path="D_TDA_Lista"/>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="TDA_Iterable"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
