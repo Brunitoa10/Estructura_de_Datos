@@ -1,6 +1,6 @@
 package E_TDA_Iterable;
 
-import Excepciones.NoSuchElementException;
+import A_Excepciones.NoSuchElementException;
 
 public interface Iterator<E> {
 	

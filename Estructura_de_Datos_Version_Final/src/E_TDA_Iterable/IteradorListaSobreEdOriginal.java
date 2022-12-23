@@ -1,11 +1,13 @@
 package E_TDA_Iterable;
 
+
+import A_Excepciones.BoundaryViolationException;
+import A_Excepciones.EmptyListException;
+import A_Excepciones.InvalidPositionException;
+import A_Excepciones.NoSuchElementException;
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
-import Excepciones.BoundaryViolationException;
-import Excepciones.EmptyListException;
-import Excepciones.InvalidPositionException;
-import Excepciones.NoSuchElementException;
+
 
 /* Implementacion de un iterador operando de forma
  * directa sobre la coleccion a iterar.

@@ -1,6 +1,6 @@
 package B_TDA_Pila;
 
-import Excepciones.EmptyStackException;
+import A_Excepciones.EmptyStackException;
 
 public class PilaArreglo<E> implements Stack<E>{
 	//Atributos de clase

@@ -9,7 +9,7 @@
 package B_TDA_Pila;
 import org.junit.*;                         //For tags
 
-import Excepciones.EmptyStackException;
+import A_Excepciones.EmptyStackException;
 
 import static org.junit.Assert.*;           //For assertions
 
