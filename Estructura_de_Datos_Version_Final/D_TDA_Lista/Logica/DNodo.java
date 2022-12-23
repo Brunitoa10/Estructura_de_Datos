@@ -1,6 +1,6 @@
 package Logica;
 
-import Excepciones.InvalidPositionException;
+import Interfaces.Position;
 
 public class DNodo<E> implements Position<E> {
 	
@@ -39,10 +39,7 @@ public class DNodo<E> implements Position<E> {
 		this.elemento = elemento;
 	}
 	
-	public E element() throws InvalidPositionException{
-		if(this.previo == null && this.siguiente == null) {
-			throw new InvalidPositionException("Error: La posicion no pertenece a la lista.");
-		}
+	public E element(){
 		return this.elemento;
 	}
 }

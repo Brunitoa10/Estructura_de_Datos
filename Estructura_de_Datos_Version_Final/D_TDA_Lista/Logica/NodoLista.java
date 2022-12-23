@@ -4,12 +4,13 @@ import Interfaces.Position;
 
 public class NodoLista<E> implements Position<E> {
 	
-	private E elemento;
 	private NodoLista<E> siguiente;
+	private E elemento;
+	
 	
 	public NodoLista(E item, NodoLista<E> sig) {
-		elemento= item;
-		siguiente = sig;
+		this.elemento= item;
+		this.siguiente = sig;
 	}
 	
 	public NodoLista(E item) {
@@ -27,16 +28,16 @@ public class NodoLista<E> implements Position<E> {
 	
 	//GETTERS
 	public E getElemento() {
-		return elemento;
+		return this.elemento;
 	}
 	
 	public NodoLista<E> getSiguiente(){
-		return siguiente;
+		return this.siguiente;
 	}
 	
 	@Override
 	public E element() {
 		// TODO Auto-generated method stub
-		return elemento;
+		return this.elemento;
 	}
 }

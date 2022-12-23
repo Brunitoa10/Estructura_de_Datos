@@ -1,6 +1,5 @@
 package Interfaces;
 
-import java.util.Iterator;
 
 import Excepciones.*;
 
