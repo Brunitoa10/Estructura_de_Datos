@@ -37,7 +37,10 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		/**
 		 * @return O(1)
 		 */
-		public Position<E> first(){
+		public Position<E> first() throws EmptyListException{
+			if(size == 0 ) {
+				throw new EmptyListException("Error (last()) --> Lista Vacia.");
+			}
 			return head;
 		}
 		
@@ -45,16 +48,13 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		 * @return O(n) 
 		 */
 		public Position<E> last() throws EmptyListException{
-			NodoLista<E> retorno;
-			if (isEmpty()) {
+			if (size == 0) {
 				throw new EmptyListException("Error (last()) --> Lista Vacia.");
-			}else {
-				NodoLista<E> aux = head;
-				while (aux.getSiguiente() != null) {
-					aux = aux.getSiguiente();
-				}	
-				retorno = aux;
-			}
+			}	
+			NodoLista<E> retorno = head;
+			while (retorno.getSiguiente() != null) {
+				retorno = retorno.getSiguiente();
+			}				
 			return retorno;
 		}
 
@@ -64,7 +64,7 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		}
 		
 		public void addLast(E e) {//O(n)
-			if (isEmpty()) {
+			if (size == 0) {
 				addFirst(e);
 			}else {
 				NodoLista<E> aux = head;
@@ -80,9 +80,11 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		 * @return O(1)
 		 */
 		public void addAfter(Position<E> p,E e) throws InvalidPositionException{
+			if(size == 0) {
+				throw new InvalidPositionException("Error (addAfter(p,e)) --> Lista Vacia.");
+			}
 			NodoLista<E> n = checkPosition(p);
-			NodoLista<E> nuevo = new NodoLista<E>(e);
-			nuevo.setSiguiente(n.getSiguiente());
+			NodoLista<E> nuevo = new NodoLista<E>(e,n.getSiguiente());
 			n.setSiguiente(nuevo);
 			size++;
 		}
@@ -91,14 +93,12 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		 * @return O(1)
 		 */
 		public E set(Position<E> p, E e) throws InvalidPositionException{
-			NodoLista<E> nodo = checkPosition(p); // Verifico si P es valido
-			
-			if(isEmpty()) {
+			if(size == 0) {
 				throw new InvalidPositionException("Error (set(p,e)) --> Posicion Invalida");
 			}
+			NodoLista<E> nodo = checkPosition(p); // Verifico si P es valido
 			E retorno = p.element();
-			nodo.setElemento(e);
-					
+			nodo.setElemento(e);	
 			return retorno;
 		}
 		
@@ -116,21 +116,33 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		/**
 		 * @return O(1)
 		 */
-		private NodoLista<E> checkPosition(Position<E> p) throws InvalidPositionException{
-			NodoLista<E> toReturn;
-			
-			try{
-				toReturn = (NodoLista<E>) p;
-			}catch(ClassCastException e) {
-				throw new InvalidPositionException("Error (checkPosition(p)) --> Posicion Invalida.");
+		private NodoLista<E> checkPosition(Position<E> n) throws InvalidPositionException {
+			try {
+				if (n==null) {
+					throw new InvalidPositionException("Error, posición nula");
+				}
+				if (n.element()==null) {
+					throw new InvalidPositionException("El elemento fue eliminado previamente");
+				}
+				return (NodoLista<E>) n;
 			}
-			return toReturn;
+			catch (InvalidPositionException e) {
+				throw new InvalidPositionException("n no es un nodo de esta lista");
+			}
 		}
 		
 		public Position<E> prev (Position<E> p) throws InvalidPositionException, BoundaryViolationException{
+			if(size == 0) {
+				throw new InvalidPositionException("Error (prev(p)) --> Lista Vacia.");
+			}
 			checkPosition(p); //O(1)
-			if(p == first()) {
-				throw new BoundaryViolationException("Error (prev(p)) --> Posicion primera.");
+			try {
+				if(p == first()) {
+					throw new BoundaryViolationException("Error (prev(p)) --> Posicion primera.");
+				}
+			} catch (EmptyListException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} //C1
 			
 			NodoLista<E> aux = head; //C2
@@ -146,8 +158,11 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 		}
 		
 		public void addBefore(Position<E> p, E e) throws InvalidPositionException{
+			if(size == 0) {
+				throw new InvalidPositionException("Error (prev(p)) --> Lista vacia.");
+			}
 			checkPosition(p);
-	        if( p == first() ) { 
+	        if( p == head ) { 
 	        	addFirst(e);
 	        }else {
 		        try {
@@ -156,27 +171,27 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 					e1.printStackTrace();
 				}
 	        }
+	        size++;
 		}
 		
 		public E remove(Position<E> p) throws InvalidPositionException{
-			NodoLista<E> n = checkPosition(p);
-	        if(isEmpty()) {
+	        if(size == 0) {
 	        	throw new InvalidPositionException("Error (prev(p)) --> Lista Vacia.");
 	        }
-			if ( p == first() ) {
-	        	head = n.getSiguiente();
-	        }else {
-				try {
-					checkPosition(prev(p)).setSiguiente( n.getSiguiente() );
-				} catch (BoundaryViolationException e) {
-					e.printStackTrace();
-				} 
-			}
-	        size--; 
+	        NodoLista<E> n = checkPosition(p);
 	        E aux = p.element();
+	        if ( n ==  head ) {
+	        	head = head.getSiguiente();
+	        }else {
+	        	NodoLista<E> it = head;
+	        	while(it.getSiguiente() != n) {
+	        		it = it.getSiguiente();
+	        	}
+	        	it.setSiguiente(n.getSiguiente());
+			} 
 	        n.setElemento(null);
 	        n.setSiguiente(null);
-	        
+	        size--;
 	        return aux;
 	    }
 

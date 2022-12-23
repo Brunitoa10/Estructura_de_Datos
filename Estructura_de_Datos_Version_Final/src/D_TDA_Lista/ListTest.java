@@ -19,7 +19,6 @@ public class ListTest {
 	/*
 	 * Inicializa la lista antes de cada test individual
 	 */
-
 	private PositionList<String> getList() {
 		return new listaSimplementeEnlazada<String>();
 	}
