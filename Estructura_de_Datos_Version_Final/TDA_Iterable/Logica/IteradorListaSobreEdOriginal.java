@@ -10,7 +10,7 @@ import Interfaces.Position;
 import Interfaces.PositionList;
 
 /* Implementacion de un iterador operando de forma
- * directa sibre ka cikeccuib a iterar.
+ * directa sobre la coleccion a iterar.
  */
 
 public class IteradorListaSobreEdOriginal<E> implements Iterator<E>{
