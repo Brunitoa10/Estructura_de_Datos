@@ -153,21 +153,44 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 	}
 
 	@Override
-	public E set(Position<E> p, E element) throws InvalidPositionException, BoundaryViolationException {
-		// TODO Auto-generated method stub
-		return null;
+	public E set(Position<E> p, E e) throws InvalidPositionException{
+		NodoLista<E> nodo = checkPosition(p); // Verifico si P es valido
+		
+		if(isEmpty()) {
+			throw new InvalidPositionException("Posicion Invalida");
+		}
+		
+		E retorno = p.element();
+		nodo.setElemento(e);
+		
+		return retorno;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return (new ElementIterator<E>(this));
 	}
 
 	@Override
 	public Iterable<Position<E>> positions() {
-		// TODO Auto-generated method stub
-		return null;
+		PositionList<Position<E>> col = new listaSimplementeEnlazada<Position<E>>();
+		Position<E> p = null;
+		
+		try{
+			if(!isEmpty()){
+				p = first();
+			}else{
+				return col;
+			}
+			while(p != last()){
+				col.addLast(p);
+				p = next(p);
+			}
+			col.addLast(p);
+		}catch(BoundaryViolationException | InvalidPositionException | EmptyListException e){
+			e.printStackTrace();
+		}
+		return col;
 	}
 	
 	
