@@ -116,14 +116,40 @@ public class listaSimplementeEnlazada<E> implements PositionList<E>{
 
 	@Override
 	public void addBefore(Position<E> p, E element) throws InvalidPositionException {
-		// TODO Auto-generated method stub
+		checkPosition(p);
+        try {
+			if( p == first()) {
+				addFirst(element);
+			} else {
+				addAfter( prev(p), element );
+			}
+		} catch (InvalidPositionException | BoundaryViolationException | EmptyListException e) {
+			e.printStackTrace();
+		}
 		
-	}
+	}//T_addBefore(n) = O(n)
 
 	@Override
 	public E remove(Position<E> p) throws InvalidPositionException {
-		// TODO Auto-generated method stub
-		return null;
+		if(isEmpty()){
+			throw new InvalidPositionException("Error (Remove(p)): Lista vacia.");
+		}
+		NodoLista<E> nodo = checkPosition(p);
+		try {
+			if(p == first()) {
+				head = nodo.getSiguiente();
+			}else {
+				checkPosition(prev(p)).setSiguiente(nodo.getSiguiente());
+			}
+		} catch (EmptyListException | InvalidPositionException | BoundaryViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		size--;
+		E retorno = p.element();
+		nodo.setElemento(null);
+		nodo.setSiguiente(null);
+		return retorno;
 	}
 
 	@Override
