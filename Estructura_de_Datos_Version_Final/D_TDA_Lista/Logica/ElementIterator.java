@@ -51,12 +51,12 @@ public class ElementIterator<E> implements Iterator<E> {
 		if(cursor == null) {
 			throw new NoSuchElementException("You run out of elements.");
 		}
-		E toReturn = cursor.element();
+		E retorno = cursor.element();
 		try {
 			cursor = (cursor == lista.last()) ? null : lista.next(cursor);
 		} catch (InvalidPositionException | BoundaryViolationException | EmptyListException e) {
 			e.printStackTrace();
 		}
-		return toReturn;
+		return retorno;
 	}
 }
