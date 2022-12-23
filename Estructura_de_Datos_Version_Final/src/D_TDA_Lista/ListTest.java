@@ -3,13 +3,14 @@ package D_TDA_Lista;
 import static org.junit.Assert.*;
 import java.util.*;
 
-import java.util.Iterator;
-
 import org.junit.*;
 
-import Excepciones.BoundaryViolationException;
-import Excepciones.EmptyListException;
-import Excepciones.InvalidPositionException;
+import A_Excepciones.BoundaryViolationException;
+import A_Excepciones.EmptyListException;
+import A_Excepciones.InvalidPositionException;
+
+import E_TDA_Iterable.Iterable;
+import E_TDA_Iterable.Iterator;
 
 public class ListTest {
 	private PositionList<String> l; // interface

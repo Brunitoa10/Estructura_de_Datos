@@ -4,13 +4,15 @@ package E_TDA_Iterable;
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidPositionException;
-import A_Excepciones.NoSuchElementException;
+
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
 
 
 /* Implementacion de un iterador operando de forma
  * directa sobre la coleccion a iterar.
+ * 
+ * IteradorListaSobreEdOriginal equivale a elementIterator
  */
 
 public class IteradorListaSobreEdOriginal<E> implements Iterator<E>{
@@ -36,14 +38,11 @@ public class IteradorListaSobreEdOriginal<E> implements Iterator<E>{
 		return cursor != null;
 	}
 	@Override
-	public E next() throws NoSuchElementException {
-		if(cursor == null) {
-			throw new NoSuchElementException("You run out of elements.");
-		}
+	public E next(){
 		E retorno = cursor.element();
 		try {
 			cursor = (cursor == lista.last()) ? null : lista.next(cursor);
-		} catch (InvalidPositionException | BoundaryViolationException | EmptyListException e) {
+		} catch (EmptyListException | InvalidPositionException | BoundaryViolationException e) {
 			e.printStackTrace();
 		}
 		return retorno;

@@ -1,9 +1,12 @@
 package D_TDA_Lista;
 
 
+import A_Excepciones.BoundaryViolationException;
+import A_Excepciones.EmptyListException;
+import A_Excepciones.InvalidPositionException;
 import E_TDA_Iterable.Iterable;
 import E_TDA_Iterable.Iterator;
-import Excepciones.*;
+
 
 /**
  * Interface PositionList

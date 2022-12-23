@@ -15,5 +15,5 @@ public interface Iterator<E> {
 	 * 
 	 * @return Elemento siguiente
 	 * */
-	public E next() throws NoSuchElementException;
+	public E next();
 }
