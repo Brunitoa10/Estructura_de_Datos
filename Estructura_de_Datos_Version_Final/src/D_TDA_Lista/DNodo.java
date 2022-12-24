@@ -12,7 +12,13 @@ public class DNodo<E> implements Position<E> {
 		this.siguiente = siguiente;
 		this.elemento = elemento;
 	}
-
+	
+	//Inicializa todos los campos en null
+	public DNodo() {
+		this.previo = this.siguiente = null;
+		this.elemento = null; 
+	}
+	
 	public DNodo<E> getPrevio() {
 		return previo;
 	}

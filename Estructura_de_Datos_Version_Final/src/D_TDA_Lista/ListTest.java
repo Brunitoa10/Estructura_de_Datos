@@ -884,7 +884,6 @@ public class ListTest {
 			fail("Al invocar set() con una posici�n inv�lida deber�a lanzar la excepci�n InvalidPositionException");
 		} catch (InvalidPositionException e) {
 		} catch (EmptyListException e) {fail("Al solicitar la primer posici�n de una lista que no est� vac�a lanza la excepci�n EmptyListException");} catch (BoundaryViolationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Caso de prueba: set el �nico elemento de la lista
