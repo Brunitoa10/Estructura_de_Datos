@@ -39,7 +39,7 @@ public interface PositionList<E> extends Iterable<E>{
 	 * @throws EmptyListException si la lista est� vac�a.
 	 * 
 	 */
-	public Position<E> last() throws EmptyListException;;
+	public Position<E> last() throws EmptyListException;
 	
 	/**
 	 * Devuelve la posici�n del elemento siguiente a la posici�n pasada por par�metro.

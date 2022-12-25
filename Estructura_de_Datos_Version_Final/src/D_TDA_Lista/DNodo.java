@@ -15,9 +15,8 @@ public class DNodo<E> implements Position<E> {
 	
 	//Inicializa todos los campos en null
 	public DNodo() {
-		this.previo = this.siguiente = null;
-		this.elemento = null; 
-	}
+        this(null, null, null);
+    }
 	
 	public DNodo<E> getPrevio() {
 		return previo;
