@@ -87,7 +87,7 @@ public class listaDoblementeEnlazada<E> implements PositionList<E>{
 	public void addAfter(Position<E> p, E element) throws InvalidPositionException {
 		DNodo<E> pos = checkPosition(p);
 		DNodo<E> nuevo= new DNodo<E> (pos,pos.getSiguiente(),element);//previo, siguiente, elemento
-		nuevo.getSiguiente().setPrevio(nuevo);
+		pos.getSiguiente().setPrevio(nuevo);
 		pos.setSiguiente(nuevo);
 		size++;
 	}//T_addAfter(n) = O(1)
@@ -96,8 +96,8 @@ public class listaDoblementeEnlazada<E> implements PositionList<E>{
 	public void addBefore(Position<E> p, E element) throws InvalidPositionException {
 		DNodo<E> pos = checkPosition(p);
 		DNodo<E> nuevo = new DNodo<E> (pos.getPrevio(), pos, element);
-		nuevo.getSiguiente().setPrevio(nuevo);
-		nuevo.setSiguiente(nuevo);
+		pos.getPrevio().setSiguiente(nuevo);
+		pos.setPrevio(nuevo);
 		size++;
 	}
 
