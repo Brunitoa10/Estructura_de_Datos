@@ -144,20 +144,20 @@ public class MapeoConHashAbierto<K,V> implements Map<K,V>{
 	
 	@Override
 	public V remove (K k) throws InvalidKeyException {
-		V retorna=null;
+		V retorno = null;
 		if (k == null) {
 			throw new InvalidKeyException("Clave inválida");
 		}
 		try {
-			retorna = A[funcionHash(k)].remove(k);
-			if (retorna!=null) {//si retorna no es nulo, esto quiere decir que el remove de MapeoConLista removió la entrada
+			retorno = A[funcionHash(k)].remove(k);
+			if (retorno != null) {//si retorna no es nulo, esto quiere decir que el remove de MapeoConLista removió la entrada
 				size--;
 			}
 		}
 		catch (InvalidKeyException e) {
 			e.printStackTrace();
 		}
-		return retorna;
+		return retorno;
 	}
 	
 	@Override
