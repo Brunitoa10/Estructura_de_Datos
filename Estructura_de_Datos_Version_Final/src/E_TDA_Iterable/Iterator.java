@@ -1,7 +1,5 @@
 package E_TDA_Iterable;
 
-import A_Excepciones.NoSuchElementException;
-
 public interface Iterator<E> {
 	
 	/* Metodo que devuelve true si existe un siguiente
@@ -14,6 +12,6 @@ public interface Iterator<E> {
 	/* Devuelve el siguiente elemento en una iteracion
 	 * 
 	 * @return Elemento siguiente
-	 * */
+	 */
 	public E next();
 }

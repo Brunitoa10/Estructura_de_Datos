@@ -1,12 +1,13 @@
 package F_TDA_Mapeo;
 
+import java.util.Iterator;
+
 import A_Excepciones.InvalidKeyException;
 import A_Excepciones.InvalidPositionException;
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
 import D_TDA_Lista.listaDoblementeEnlazada;
-import E_TDA_Iterable.Iterable;
-import E_TDA_Iterable.Iterator;
+
 
 public class MapeoConListaDoblementeEnlazada<K,V> implements Map<K,V>{
 	
@@ -105,14 +106,35 @@ public class MapeoConListaDoblementeEnlazada<K,V> implements Map<K,V>{
 	}
 
 	public Iterable<K> keys() {
-		return null;
+		PositionList<K> retorno = new listaDoblementeEnlazada<K>(); 
+		if(!list.isEmpty()) {
+			Iterator<Position<Entrada<K,V>>> it = list.positions().iterator();
+			while(it.hasNext()) {
+				retorno.addLast(it.next().element().getKey());
+			}
+		}
+		return retorno;
 	}
 	
 	public Iterable<V> values() {
-		return null;
+		PositionList<V> retorno = new listaDoblementeEnlazada<V>(); 
+		if(!list.isEmpty()) {
+			Iterator<Position<Entrada<K,V>>> it = list.positions().iterator();
+			while(it.hasNext()) {
+				retorno.addLast(it.next().element().getValue());
+			}
+		}
+		return retorno;
 	}
 	
-	public Iterable<Entry<K,V>> entries() {
-		return null;
+	public Iterable<Entry<K, V>> entries() {
+		PositionList<Entry<K,V>> retorno = new listaDoblementeEnlazada<Entry<K,V>>();
+		if(!list.isEmpty()) {
+			Iterator<Position<Entrada<K,V>>> it = list.positions().iterator();
+			while(it.hasNext()) {
+				retorno.addLast(it.next().element());
+			}
+		}
+		return retorno;
 	}
 }

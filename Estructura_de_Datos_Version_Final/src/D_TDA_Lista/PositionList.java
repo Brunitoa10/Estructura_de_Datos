@@ -1,11 +1,10 @@
 package D_TDA_Lista;
 
+import java.util.Iterator;
 
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidPositionException;
-import E_TDA_Iterable.Iterable;
-import E_TDA_Iterable.Iterator;
 
 
 /**
@@ -69,7 +68,7 @@ public interface PositionList<E> extends Iterable<E>{
 	/**
 	 * Inserta un elemento al final de la lista.
 	 * @param element Elemento a insertar al final de la lista.
-	 * @return T_addlast(n) = O(n)
+	 * @return T_addlast(n) = O(1)
 	 */
 	public void addLast(E element);
 	
@@ -119,6 +118,4 @@ public interface PositionList<E> extends Iterable<E>{
 	 * @return Una colecci�n iterable de posiciones.
 	 */
 	public Iterable<Position<E>> positions();
-
-	
 }

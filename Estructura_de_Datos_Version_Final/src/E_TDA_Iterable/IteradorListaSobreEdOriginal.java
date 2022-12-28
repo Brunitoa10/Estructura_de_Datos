@@ -1,12 +1,14 @@
 package E_TDA_Iterable;
 
 
+import java.util.Iterator;
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidPositionException;
 
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
+
 
 
 /* Implementacion de un iterador operando de forma

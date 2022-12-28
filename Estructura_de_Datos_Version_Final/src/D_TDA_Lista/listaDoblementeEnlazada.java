@@ -3,9 +3,10 @@ package D_TDA_Lista;
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidPositionException;
-import E_TDA_Iterable.Iterable;
+
+import java.util.Iterator;
 import E_TDA_Iterable.IteradorListaSobreEdOriginal;
-import E_TDA_Iterable.Iterator;
+
 
 //Es mas eficiente que la listaSimplementeEnlazada
 

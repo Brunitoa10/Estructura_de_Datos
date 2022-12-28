@@ -1,10 +1,9 @@
 package D_TDA_Lista;
 
+import java.util.Iterator;
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidPositionException;
-import E_TDA_Iterable.Iterator;
-import E_TDA_Iterable.Iterable;
 import E_TDA_Iterable.IteradorListaSobreEdOriginal;
 
 public class listaSimplementeEnlazada<E> implements PositionList<E>{
