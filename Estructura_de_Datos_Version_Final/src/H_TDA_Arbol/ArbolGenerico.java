@@ -148,10 +148,12 @@ public class ArbolGenerico<E> implements Tree<E>{
 
 	@Override
 	public Position<E> addBefore(Position<E> p, Position<E> rb, E e) throws InvalidPositionException {
+		//Si el arbol esta vacio
 		if(size == 0) {
 			throw new InvalidPositionException("Error (addBefore(p,rb,e)) --> Arbol Vacio.");
 		}
 		TNodo<E> padre = checkPosition(p);
+		//Si es una hoja
 		if(isExternal(p)) {
 			throw new InvalidPositionException("Error (addBefore(p,rb,e)) --> La posicion p no tiene hijos");
 		}
