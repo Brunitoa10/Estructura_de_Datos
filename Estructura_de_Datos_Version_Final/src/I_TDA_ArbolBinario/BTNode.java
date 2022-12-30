@@ -5,14 +5,15 @@ public class BTNode<E> implements BTPosition<E>{
 	//Atributos de instancia
 	
 	private E elem;
-	private BTNode<E> rigth;
-	private BTNode<E> left;
-	private BTNode<E> parent;
+	private BTNode<E> rigth,left,parent;
+	
 	
 	//Constructor
 	public BTNode(E elem, BTNode<E> parent) {
 		this.elem = elem;             //setElement(elem);
 		this.parent = parent;		 //setParent(parent);
+		this.rigth = null;
+		this.left = null;
 	}
 	
 	public BTNode(E e){
