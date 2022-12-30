@@ -11,16 +11,13 @@ import D_TDA_Lista.PositionList;
 import D_TDA_Lista.listaDoblementeEnlazada;
 
 public class ArbolBinarioEnlazado<E> implements BinaryTree<E> {
-/*
-	@Override
 	
-
-}*/	
-
+	//Atributos de instancia
 	
 	protected BTPosition<E> raiz;
 	protected int size;
 	
+	//Constructores
 	public ArbolBinarioEnlazado(){
 		size = 0;
 		raiz = null;
