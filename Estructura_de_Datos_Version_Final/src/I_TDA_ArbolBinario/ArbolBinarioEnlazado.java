@@ -230,7 +230,7 @@ public class ArbolBinarioEnlazado<E> implements BinaryTree<E> {
 		BTPosition<E> raiz_local = checkPosition(p), hi_raiz_local, hd_raiz_local;
 		Position<E> raiz_t1, raiz_t2;
 		if (raiz_local.getLeft() != null || raiz_local.getRight() != null) {
-			throw new InvalidPositionException("La posicion no corresponde a un nodo hoja");
+			throw new InvalidPositionException("Error (attach(p,t1,t2)) --> La posicion no corresponde a un nodo hoja");
 		}
 		try {
 			//Clonación de T1 como subárbol izquierdo
@@ -302,13 +302,13 @@ public class ArbolBinarioEnlazado<E> implements BinaryTree<E> {
 	private BTNode<E> checkPosition(Position<E> n) throws InvalidPositionException {
 		try {
 			if (n==null) {
-				throw new InvalidPositionException("Error, posición nula.");
+				throw new InvalidPositionException("Error (checkPosition(v)) --> posición nula.");
 			}
 			if (n.element()==null) {
-				throw new InvalidPositionException("El elemento fue eliminado previamente.");
+				throw new InvalidPositionException("Error (checkPosition(v)) --> El elemento fue eliminado previamente.");
 			}
 			if (size==0) {
-				throw new InvalidPositionException("El árbol está vacío.");
+				throw new InvalidPositionException("Error (checkPosition(v)) --> El árbol está vacío.");
 			}
 			return (BTNode<E>) n;
 		}
