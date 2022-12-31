@@ -192,6 +192,5 @@ public class ABB<E extends Comparable<E>> {
 	private boolean soloTieneHijoDerecho(NodoABB<E> nodo) {
 		return nodo.getIzq().getRotulo() == null && nodo.getDer().getRotulo() != null;
 	}
-	
 }
  
