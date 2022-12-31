@@ -1,4 +1,4 @@
-package M_TDA_ABB;
+package M_ABB;
 
 public class NodoABB<E extends Comparable<E>> {
 	//Atributos de instancia
