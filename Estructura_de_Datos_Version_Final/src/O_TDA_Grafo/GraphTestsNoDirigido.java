@@ -35,7 +35,7 @@ public class GraphTestsNoDirigido {
 	 */
 	@Before
 	public void setUp() {
-		graph = new GrafoNoDirigido<Object, Object>(); // cambiar esta línea para probar
+		graph = new GrafoNoDirigidoListaDeAdyacencia<Object, Object>(); // cambiar esta línea para probar
 												// distintas implementaciones
 		o1 = new Object();
 	}

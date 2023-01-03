@@ -1,10 +1,13 @@
 package O_TDA_Grafo;
 
+import java.util.Iterator;
+
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidEdgeException;
 import A_Excepciones.InvalidPositionException;
 import A_Excepciones.InvalidVertexException;
+import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
 import D_TDA_Lista.listaDoblementeEnlazada;
 
@@ -58,26 +61,79 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 
 	@Override
 	public Vertex<V> opposite(Vertex<V> v, Edge<E> e) throws InvalidVertexException, InvalidEdgeException {
+		if(v == null) {
+			throw new InvalidVertexException("Error (opposite(v,e)) --> Vertice null.");
+		}
+		if(e == null) {
+			throw new InvalidEdgeException("Error (opposite(v,e)) --> Arco null.");
+		}
+		Vertice<V,E> nuevoVertice = (Vertice<V, E>) v;
+		Arco<V, E> nuevoArco = (Arco<V, E>) e;
+		Vertex<V> retornar = null;
+		boolean existeRelacion = false;
 		
-		return null;
+		if(nuevoArco.getPosicionEnListaV1().equals(nuevoVertice)) {
+			retornar = nuevoArco.getV2();
+			existeRelacion = true;
+		}else {
+			if(nuevoArco.getPosicionEnListaV2().equals(nuevoVertice)) {
+				retornar = nuevoArco.getV1();
+				existeRelacion = true;
+			}
+		}
+		
+		if(!existeRelacion) {
+			throw new InvalidEdgeException("Error (opposite(v,e)) --> El vertice y el arco no estan relacionados.");
+		}
+		return retornar;
 	}
 
 	@Override
 	public Vertex<V>[] endvertices(Edge<E> e) throws InvalidEdgeException {
-		
-		return null;
+		if(e == null) {
+			throw new InvalidEdgeException("Error (endVertices(e)) --> Arco null.");
+		}
+		Vertex<V>[] retornar = (Vertex<V>[]) new Vertex[2];
+		Arco<V,E> nuevoArco = (Arco<V, E>) e;
+		retornar[0] = (Vertex<V>) nuevoArco.getPosicionEnListaV1();
+		retornar[1] = (Vertex<V>) nuevoArco.getPosicionEnListaV2();
+		return retornar;
 	}
 
 	@Override
 	public boolean areAdjacent(Vertex<V> v, Vertex<V> w) throws InvalidVertexException {
-		
-		return false;
+		if(v == null || w == null) {
+			throw new InvalidVertexException("Error (areAdjacent(v,w)) --> Vertice null.");
+		}
+		Vertice<V,E> verticeV = (Vertice<V, E>) v;
+		Vertice<V,E> verticeW = (Vertice<V, E>) w;
+		boolean retorno = false;
+		Iterator<Arco<V,E>> it = verticeV.getAdyacentes().iterator();
+		Arco<V,E> tmpArco = null;
+		try {
+			while(!retorno && it.hasNext()) {
+				tmpArco = it.next();
+				if(this.opposite(verticeV, tmpArco).equals(verticeW)) {
+					retorno = true;
+				}else {
+					retorno = false;
+				}
+			}
+		} catch (InvalidVertexException | InvalidEdgeException e) {
+			e.printStackTrace();
+		}
+		return retorno;
 	}
 
 	@Override
 	public V replace(Vertex<V> v, V x) throws InvalidVertexException {
-		
-		return null;
+		if(v == null || x == null) {
+			throw new InvalidVertexException("Error (replace(v,x)) --> Vertice null.");
+		}
+		Vertice<V,E> verticeV = (Vertice<V, E>) v;
+		V retorno = verticeV.element();
+		verticeV.setRotulo(x);
+		return retorno;
 	}
 
 	@Override
@@ -124,14 +180,47 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 
 	@Override
 	public V removeVertex(Vertex<V> v) throws InvalidVertexException {
+		if(v == null) {
+			throw new InvalidVertexException("Error (removeVertex(v)) --> Vertice null.");
+		}
+		Vertice<V,E> verticeAretornar = (Vertice<V, E>) v;
 		
-		return null;
+		try {
+			for(Edge<E> e : verticeAretornar.getAdyacentes()) {
+				this.removeEdge(e);
+			}	
+			nodos.remove(verticeAretornar.getPosicionEnListaVertices());
+		} catch (InvalidEdgeException | InvalidPositionException e1) {
+			e1.printStackTrace();
+		}
+		return verticeAretornar.element();
 	}
 
 	@Override
 	public E removeEdge(Edge<E> e) throws InvalidEdgeException {
-		
-		return null;
-	}
-
+		if(e == null) {
+			throw new InvalidEdgeException("Error (removeEdge(e)) --> Arco null.");
+		}
+		Arco<V,E> nuevoArco = null;
+		Vertice<V,E> verticeV1 = null;
+		Vertice<V,E> verticeV2 = null;
+		Position<Arco<V,E>> posicionNuevoArco = null; 
+		E retorno = null;
+		try {
+			//Recupero extremos del arco
+			nuevoArco = (Arco<V, E>) e;
+			verticeV1 = nuevoArco.getV1(); 
+			verticeV2 = nuevoArco.getV2();
+			//Elimino a e de la lista de adyacencia de v1
+			verticeV1.getAdyacentes().remove(nuevoArco.getPosicionEnListaV1());
+			//Elimino a e de la lista de adyacencia de v1
+			verticeV2.getAdyacentes().remove(nuevoArco.getPosicionEnListaV2());
+			//Elimino a e de la lista de arcos y retorno el rotulo del arco
+			posicionNuevoArco = nuevoArco.getPosicionEnArcos();
+			retorno = arcos.remove(posicionNuevoArco).element();
+		} catch (InvalidPositionException e1) {
+			e1.printStackTrace();
+		}
+		return retorno;
+	}//O(1)
 }
