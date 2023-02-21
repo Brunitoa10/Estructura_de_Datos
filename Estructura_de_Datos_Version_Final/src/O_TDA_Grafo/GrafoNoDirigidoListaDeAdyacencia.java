@@ -67,16 +67,16 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		if(e == null) {
 			throw new InvalidEdgeException("Error (opposite(v,e)) --> Arco null.");
 		}
-		Vertice<V,E> nuevoVertice = (Vertice<V, E>) v;
-		Arco<V, E> nuevoArco = (Arco<V, E>) e;
+		Vertice<V,E> nuevoVertice = (Vertice<V,E>) v;
+		Arco<V, E> nuevoArco = (Arco<V,E>) e;
 		Vertex<V> retornar = null;
 		boolean existeRelacion = false;
 		
-		if(nuevoArco.getPosicionEnListaV1().equals(nuevoVertice)) {
+		if(nuevoArco.getV1().equals(nuevoVertice)) {
 			retornar = nuevoArco.getV2();
 			existeRelacion = true;
 		}else {
-			if(nuevoArco.getPosicionEnListaV2().equals(nuevoVertice)) {
+			if(nuevoArco.getV2().equals(nuevoVertice)) {
 				retornar = nuevoArco.getV1();
 				existeRelacion = true;
 			}
@@ -95,8 +95,10 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		}
 		Vertex<V>[] retornar = (Vertex<V>[]) new Vertex[2];
 		Arco<V,E> nuevoArco = (Arco<V, E>) e;
-		retornar[0] = (Vertex<V>) nuevoArco.getPosicionEnListaV1();
-		retornar[1] = (Vertex<V>) nuevoArco.getPosicionEnListaV2();
+		/*retornar[0] = (Vertex<V>) nuevoArco.getPosicionEnListaV1();
+		retornar[1] = (Vertex<V>) nuevoArco.getPosicionEnListaV2();*/
+		retornar[0] = (Vertex<V>) nuevoArco.getV1();
+		retornar[1] = (Vertex<V>) nuevoArco.getV2();
 		return retornar;
 	}
 
@@ -120,7 +122,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 				}
 			}
 		} catch (InvalidVertexException | InvalidEdgeException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return retorno;
 	}
@@ -143,13 +145,12 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			nodos.addLast(v);
 			v.setPosicionEnListaVertices(nodos.last());
 		} catch (EmptyListException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return v;
 	}//O(1)
 
 	@Override
-	
 	public Edge<E> insertEdge(Vertex<V> v, Vertex<V> w, E e) throws InvalidVertexException {
 		if(v == null || w == null) {
 			throw new InvalidVertexException("Error (incidentEdges(v)) --> Vertice null.");
@@ -173,7 +174,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			arcos.addLast(nuevoArco);
 			nuevoArco.setPosicionEnArcos(arcos.last());
 		} catch (EmptyListException e1) {
-			e1.printStackTrace();
+			System.out.println(e1.getMessage());
 		}
 		return nuevoArco;
 	}//O(1)
@@ -191,7 +192,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			}	
 			nodos.remove(verticeAretornar.getPosicionEnListaVertices());
 		} catch (InvalidEdgeException | InvalidPositionException e1) {
-			e1.printStackTrace();
+			System.out.println(e1.getMessage());
 		}
 		return verticeAretornar.element();
 	}
@@ -219,7 +220,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			posicionNuevoArco = nuevoArco.getPosicionEnArcos();
 			retorno = arcos.remove(posicionNuevoArco).element();
 		} catch (InvalidPositionException e1) {
-			e1.printStackTrace();
+			System.out.println(e1.getMessage());
 		}
 		return retorno;
 	}//O(1)

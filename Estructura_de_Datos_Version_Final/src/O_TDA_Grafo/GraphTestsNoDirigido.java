@@ -102,9 +102,9 @@ public class GraphTestsNoDirigido {
 	}
 
 	/**
-	 * Comprueba que el método opposite lanza InvalidVertexException con un
-	 * vértice nulo.
+	 * Comprueba que el método opposite lanza InvalidVertexException con un vértice nulo.
 	 */
+	
 	@Test(expected = InvalidVertexException.class)
 	public void opposite_nullVertex_throwsIVE() throws InvalidVertexException, InvalidEdgeException {
 		Vertex<Object> v1 = graph.insertVertex(new Object());

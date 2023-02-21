@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDAArbol.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDAArbolBinario.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDACola.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDAColaCP.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDADiccionario.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDALista.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDAMapeo.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/Jars-20230214/TDAPila.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
