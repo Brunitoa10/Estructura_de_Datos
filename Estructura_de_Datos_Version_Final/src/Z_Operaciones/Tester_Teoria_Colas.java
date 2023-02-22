@@ -1,4 +1,4 @@
-package Operaciones;
+package Z_Operaciones;
 
 import A_Excepciones.EmptyQueueException;
 import C_TDA_Cola.ColaEnlazada;

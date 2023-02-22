@@ -1,4 +1,4 @@
-package Operaciones;
+package Z_Operaciones;
 
 import A_Excepciones.EmptyStackException;
 import B_TDA_Pila.PilaEnlazada;

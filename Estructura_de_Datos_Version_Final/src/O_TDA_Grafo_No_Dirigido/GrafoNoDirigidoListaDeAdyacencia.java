@@ -1,4 +1,4 @@
-package O_TDA_Grafo;
+package O_TDA_Grafo_No_Dirigido;
 
 import java.util.Iterator;
 

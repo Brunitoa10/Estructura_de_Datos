@@ -1,6 +1,8 @@
-package O_TDA_Grafo;
+package P_TDA_Grafo_Dirigido;
 
 import A_Excepciones.*;
+import O_TDA_Grafo_No_Dirigido.Edge;
+import O_TDA_Grafo_No_Dirigido.Vertex;
 
 /**
  * Interface Grafo para grafos dirigidos.

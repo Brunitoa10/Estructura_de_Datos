@@ -1,4 +1,4 @@
-package Operaciones;
+package Z_Operaciones;
 
 /*	
  	Sean Cin1 y Cin2 dos colas de pilas de caracteres cuyos elementos se encuentran ordenados de menor a mayor; 

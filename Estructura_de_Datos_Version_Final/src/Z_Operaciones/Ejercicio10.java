@@ -1,4 +1,4 @@
-package Operaciones;
+package Z_Operaciones;
 
 import B_TDA_Pila.PilaEnlazada;
 import B_TDA_Pila.Stack;
