@@ -4,10 +4,16 @@ import java.util.Iterator;
 
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
+import A_Excepciones.EmptyQueueException;
+import A_Excepciones.EmptyStackException;
 import A_Excepciones.InvalidEdgeException;
 import A_Excepciones.InvalidKeyException;
 import A_Excepciones.InvalidPositionException;
 import A_Excepciones.InvalidVertexException;
+import B_TDA_Pila.PilaEnlazada;
+import B_TDA_Pila.Stack;
+import C_TDA_Cola.ColaEnlazada;
+import C_TDA_Cola.Queue;
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
 import D_TDA_Lista.listaDoblementeEnlazada;
@@ -229,8 +235,17 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		return retorno;
 	}//O(1)
 	
-	//Ejercicios
-	public PositionList<Vertex<V>> caminoEconomico(GraphNoDirigido<V, E> g, Vertex<V> origen, Vertex<V> destino) {
+	/*	Ejercicios 5A
+	 * 
+	 * Implemente en Java un algoritmo que dado un grafo con arcos pesados y dos vértices A y B, encuentre el camino más 
+	 * económico de A a B.
+	 * 
+	 * Determine el orden del tiempo de ejecución de su solución considerando la complejidad temporal de la implementación del grafo y 
+	 * de cualquier otra clase que necesitara.
+	 * 
+	 */
+	
+	public PositionList<Vertex<V>> caminoEconomico(Vertex<V> origen, Vertex<V> destino) {
 
 		// Creo un mapeo de los vertices donde almaceno si fueron visitados o no
 		// <VerticeO,false> --> el vertice O no fue visitado
@@ -249,11 +264,11 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		
 		try {
 			//Para cada vertice v del grafo g marcos el vertice v como no visitado
-			for(Vertex<V> v : g.vertices()) {
+			for(Vertex<V> v : this.vertices()) {
 				visitados.put(v, false);
 			}
 			//Llamo al metodo recursivo
-			caminoEcoAux(origen,destino,g,visitados,p,list,pesoAux);
+			caminoEcoAux(origen,destino,this,visitados,p,list,pesoAux);
 		} catch (InvalidKeyException e) {
 			System.out.println(e.getMessage());
 		}
@@ -268,9 +283,9 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			//Marco al vertice origen como visitado
 			visitados.put(origen,true);
 			
-			//Si solo hay un vertice y el peso <= al peso del camino actual
+			//Si solo hay un vertice y el peso < al peso del camino actual
 			if(origen == destino) {
-				if(pesoAux <= p.getPeso()) {
+				if(pesoAux < p.getPeso()) {
 					//Hago una clocacion del camino actual y actualizo su peso
 					p.setCamino_minimo(clonar(caminoActual));
 					p.setPeso(pesoAux);
@@ -292,7 +307,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			caminoActual.remove(caminoActual.last());
 			visitados.put(origen, false);
 		} catch (InvalidKeyException | InvalidVertexException | InvalidEdgeException | InvalidPositionException | EmptyListException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return p;
 	}
@@ -300,10 +315,8 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 	private PositionList<Vertex<V>> clonar(PositionList<Vertex<V>> camino_actual) {
 		PositionList<Vertex<V>> clon = new listaDoblementeEnlazada<Vertex<V>>();
 		PositionList<Vertex<V>> aux = new listaDoblementeEnlazada<Vertex<V>>();
-
+		Vertex<V> vert;
 		try {
-			Vertex<V> vert, vert2;
-			
 			while (!camino_actual.isEmpty()) {
 				vert = camino_actual.remove(camino_actual.first());
 				clon.addLast(vert);
@@ -311,14 +324,105 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			}
 
 			while (!aux.isEmpty()) {
-				vert2 = aux.remove(aux.first());
-				camino_actual.addLast(vert2);
+				camino_actual.addLast(aux.remove(aux.first()));
 			}
 		} catch (EmptyListException | InvalidPositionException e) {
 			System.out.println(e.getMessage());
 		}
-
 		return clon;
 	}
+
+	/* Ejercicio 5B
+	 *  
+	 * Implemente en Java un algoritmo que dado un grafo y dos vértices A y B, encuentre el camino más corto de A a B. 
+	 * Determine el orden del tiempo de ejecución de su solución considerando la complejidad temporal de la implementación del grafo 
+	 * y de cualquier otra clase que necesitara.
+	 * 
+	 * BFSsearch para hallar caminos
+	 */
+	public PositionList<Vertex<V>> caminoMasCorto(Vertex<V> origen, Vertex<V> destino){
+		
+		// Creo un mapeo de los vertices donde almaceno si fueron visitados o no
+		Map<Vertex<V>,Boolean> visitados = new MapeoConListaDoblementeEnlazada<Vertex<V>,Boolean>();
+		//Creo una lista donde voy a almacenar el camino mas corto
+		PositionList<Vertex<V>> list = new listaDoblementeEnlazada<Vertex<V>>();
+		
+		try {
+				//Para cada vertice v del grafo, marcar a v como no visitado
+				for(Vertex<V> v : this.vertices()) {
+					visitados.put(v, false);
+				}
+				list = caminoMasCortoAux(origen,destino,visitados,list);
+			
+		} catch (InvalidKeyException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
+	}
 	
+	private PositionList<Vertex<V>> caminoMasCortoAux(Vertex<V> origen, Vertex<V> destino, Map<Vertex<V>,Boolean> visitados,PositionList<Vertex<V>> lista) {
+		
+		Map<Vertex<V>,Vertex<V>> previo = new MapeoConListaDoblementeEnlazada<Vertex<V>,Vertex<V>> ();
+		//Creo una cola donde voy a almacenar los vertices
+		Queue<Vertex<V>> cola = new ColaEnlazada<Vertex<V>>();
+		boolean encontre = false;
+		Vertex<V> tmp = null;
+		Vertex<V> opuesto = null;
+		
+		try {
+			//Encolo a origen y lo marco como visitado
+			cola.enqueue(origen);
+			visitados.put(origen, true);
+			
+			//Mientras halla elementos en la cola y no encuentre el elemento
+			while(!cola.isEmpty() && !encontre) {
+				tmp = cola.dequeue();
+				if(tmp == destino) {
+					encontre = true;
+				}else {
+					//Para cada vertice v adyacente de x hacer
+					for(Edge<E> e : this.incidentEdges(tmp)) {
+						opuesto = this.opposite(tmp, e);
+						//v no esta visitado
+						if(visitados.get(opuesto) == false) {
+							cola.enqueue(opuesto);
+							visitados.put(opuesto, true);
+							previo.put(opuesto, tmp);
+						}
+					}
+				}
+			}
+		} catch (InvalidKeyException | EmptyQueueException | InvalidVertexException | InvalidEdgeException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		if(encontre) {
+			lista = recuperar(origen,destino,previo);
+		}
+		return lista;
+	}
+
+	private PositionList<Vertex<V>> recuperar(Vertex<V> origen, Vertex<V> destino, Map<Vertex<V>, Vertex<V>> previo) {
+		//Creo una pila
+		Stack<Vertex<V>> pila = new <Vertex<V>> PilaEnlazada<Vertex<V>>();
+		
+		//Creo la lista a retornar
+		PositionList<Vertex<V>> list = new listaDoblementeEnlazada<Vertex<V>>();
+		 
+		Vertex<V> tmp = destino;
+		
+		try {		
+			while(tmp != null) {
+				pila.push(tmp);
+				tmp = previo.get(tmp);
+			}
+			while(!pila.isEmpty()) {
+				list.addLast(pila.pop());
+			}
+		} catch (InvalidKeyException | EmptyStackException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return list;
+	}
 }

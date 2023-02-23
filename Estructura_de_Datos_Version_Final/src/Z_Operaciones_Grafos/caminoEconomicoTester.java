@@ -14,6 +14,49 @@ public class caminoEconomicoTester<V, E> {
 		System.out.println();
 	}
 
+	private static void testerCompleto2(GrafoNoDirigidoListaDeAdyacencia<String, Integer> g) {
+		try {
+			//Creo los vertices
+			Vertex<String> origen = g.insertVertex("Origen");
+			Vertex<String> nodoA = g.insertVertex("nodo(A)");
+			Vertex<String> nodoB = g.insertVertex("nodo(B)");
+			Vertex<String> nodoC = g.insertVertex("nodo(C)");
+			Vertex<String> nodoE = g.insertVertex("nodo(E)");
+			Vertex<String> nodoF = g.insertVertex("nodo(F)");
+			Vertex<String> destino = g.insertVertex("Destino");
+		
+			//Creo los arcos
+			g.insertEdge(origen, nodoA, 1);
+			g.insertEdge(origen, nodoB, 4);
+			g.insertEdge(nodoB, nodoF, 3);
+			g.insertEdge(nodoA, nodoC, 2);
+			g.insertEdge(nodoF, destino, 5);
+			g.insertEdge(nodoC, nodoE, 1);
+			g.insertEdge(nodoE, destino, 2);
+			
+			PositionList<Vertex<String>> list = g.caminoMasCorto(origen, destino);
+			
+
+			/* Resultado esperado
+			 * 
+			 * Origen ---> nodoB ---> nodoF ---> Destino
+			 * 
+			 */
+			
+			if(list.size() == 0) {
+				System.out.println("oh! Algo salio mal");
+			}else {
+				Iterable<Position<Vertex<String>>> run = list.positions();
+				for (Position<Vertex<String>> position : run) {
+					System.out.print(" ---> "+position.element().element());
+				}				
+			}
+				
+		} catch (InvalidVertexException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	private static void testerCompleto(GrafoNoDirigidoListaDeAdyacencia<String, Integer> g) {
 		try {
 			//Creo los vertices
@@ -34,7 +77,7 @@ public class caminoEconomicoTester<V, E> {
 			g.insertEdge(nodoC, nodoE, 1);
 			g.insertEdge(nodoE, destino, 2);
 			
-			PositionList<Vertex<String>> list = g.caminoEconomico(g, origen, destino);
+			PositionList<Vertex<String>> list = g.caminoEconomico(origen, destino);
 			
 
 			/* Resultado esperado
@@ -68,7 +111,7 @@ public class caminoEconomicoTester<V, E> {
 			g.insertEdge(origen, nodoA, 2);
 			g.insertEdge(nodoA, destino, 1);
 			
-			PositionList<Vertex<String>> list = g.caminoEconomico(g, origen, destino);
+			PositionList<Vertex<String>> list = g.caminoEconomico(origen, destino);
 			
 			if(list.size() == 0) {
 				System.out.println("oh! Algo salio mal");
@@ -90,6 +133,8 @@ public class caminoEconomicoTester<V, E> {
 		testerSimple(g);
 		salto();
 		testerCompleto(g);
+		salto();
+		testerCompleto2(g);
 	}
 }
 
