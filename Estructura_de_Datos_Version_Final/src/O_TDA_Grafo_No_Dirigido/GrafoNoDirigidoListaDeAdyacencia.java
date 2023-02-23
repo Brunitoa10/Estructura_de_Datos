@@ -5,11 +5,15 @@ import java.util.Iterator;
 import A_Excepciones.BoundaryViolationException;
 import A_Excepciones.EmptyListException;
 import A_Excepciones.InvalidEdgeException;
+import A_Excepciones.InvalidKeyException;
 import A_Excepciones.InvalidPositionException;
 import A_Excepciones.InvalidVertexException;
 import D_TDA_Lista.Position;
 import D_TDA_Lista.PositionList;
 import D_TDA_Lista.listaDoblementeEnlazada;
+import F_TDA_Mapeo.Map;
+import F_TDA_Mapeo.MapeoConListaDoblementeEnlazada;
+import Z_Operaciones_Grafos.Par;
 
 /*	El grafo conoce una lista de vertices y una lista de arcos y 
  * 	cada vertice conoce su rotulo y los arcos que inciden en el.
@@ -224,4 +228,81 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		}
 		return retorno;
 	}//O(1)
+	
+	//Ejercicios
+	public PositionList<Vertex<V>> caminoEconomico(GraphNoDirigido<V, E> g, Vertex<V> origen, Vertex<V> destino) {
+
+		// Almacenamos un mapeo de los vertices visitados
+		// <VerticeO,false> --> el vertice O no fue visitado
+		// <VerticeO,true> --> el vertice O  fue visitado
+		
+		Map<Vertex<V>,Boolean> visitados = new MapeoConListaDoblementeEnlazada<Vertex<V>,Boolean>();
+		
+		//Almaceno el costo de recorreer un camino y su costo tiene que ser el menor posible
+		
+		Par p = new Par();
+		p.setPeso(Integer.MAX_VALUE);
+		PositionList<Vertex<V>> L = new listaDoblementeEnlazada<Vertex<V>>();
+		int pesoAux = 0;
+		
+		try {
+			for(Vertex<V> v : g.vertices()) {
+				visitados.put(v, false);
+			}
+			caminoEcoAux(origen,destino,g,visitados,p,L,pesoAux);
+		} catch (InvalidKeyException e) {
+			System.out.println(e.getMessage());
+		}
+		return p.getCamino_minimo();
+	}
+	
+	private Par caminoEcoAux(Vertex<V> origen, Vertex<V> destino, GraphNoDirigido<V, E> g,Map<Vertex<V>, Boolean> visitados, Par p, PositionList<Vertex<V>> caminoActual, int pesoAux) {
+		
+		try {
+			caminoActual.addLast(origen);
+			visitados.put(origen,true);
+			if(origen.equals(destino)) {
+				if(pesoAux < p.getPeso()) {
+					p.setCamino_minimo(clonar(caminoActual));
+					p.setPeso(pesoAux);
+				}
+			}else {
+				for(Edge<E> arco : g.incidentEdges(origen)) {
+					Vertex<V> opuesto = g.opposite(origen, arco);
+					if(visitados.get(opuesto) == false) {
+						int	pesoArco = pesoAux +(int) arco.element();
+						caminoEcoAux(opuesto,destino,g,visitados,p,caminoActual,pesoAux+pesoArco);
+					}
+				}
+			}
+			caminoActual.remove(caminoActual.last());
+			visitados.put(origen, false);
+		} catch (InvalidKeyException | InvalidVertexException | InvalidEdgeException | InvalidPositionException | EmptyListException e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
+	private PositionList<Vertex<V>> clonar(PositionList<Vertex<V>> camino_actual) {
+		PositionList<Vertex<V>> clon = new listaDoblementeEnlazada<Vertex<V>>();
+		PositionList<Vertex<V>> aux = new listaDoblementeEnlazada<Vertex<V>>();
+
+		try {
+			Vertex<V> vert, vert2;
+			
+			while (!camino_actual.isEmpty()) {
+				vert = camino_actual.remove(camino_actual.first());
+				clon.addLast(vert);
+				aux.addLast(vert);
+			}
+
+			while (!aux.isEmpty()) {
+				vert2 = aux.remove(aux.first());
+				camino_actual.addLast(vert2);
+			}
+		} catch (EmptyListException | InvalidPositionException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return clon;
+	}
 }
