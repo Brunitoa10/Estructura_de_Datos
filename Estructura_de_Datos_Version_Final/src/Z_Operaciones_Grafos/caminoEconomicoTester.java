@@ -126,15 +126,25 @@ public class caminoEconomicoTester<V, E> {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	private static void imprimir(String string) {
+		System.out.println(string);
+	}
 	public static void main(String[] args) {
 		GrafoNoDirigidoListaDeAdyacencia<String,Integer> g = new GrafoNoDirigidoListaDeAdyacencia<String,Integer>();
 		
+		imprimir("Testeando Camino mas economico simple");
+			salto();
 		testerSimple(g);
-		salto();
+			salto();
+			imprimir("Testeando Camino mas economico completo");
+			salto();
 		testerCompleto(g);
-		salto();
+			salto();
+			imprimir("Testeando Camino mas corto");
+			salto();
 		testerCompleto2(g);
 	}
+
+	
 }
 
