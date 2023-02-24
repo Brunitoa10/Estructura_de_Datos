@@ -34,14 +34,14 @@ public class caminoEconomicoTester<V, E> {
 			g.insertEdge(nodoA, nodoC, 2);
 			g.insertEdge(nodoF, destino, 5);
 			g.insertEdge(nodoC, nodoE, 1);
-			g.insertEdge(nodoE, destino, 2);
-			
+			g.insertEdge(nodoE, nodoF, 2);
+			g.insertEdge(nodoF, destino, 2);
 			PositionList<Vertex<String>> list = g.alMenosUnCamino(origen, destino);
 			
 
 			/* Resultado esperado
 			 * 
-			 * 
+			 * ---> Origen ---> nodo(A) ---> nodo(C) ---> nodo(E) ---> nodo(F) ---> nodo(B) ---> Destino
 			 * 
 			 */
 			
