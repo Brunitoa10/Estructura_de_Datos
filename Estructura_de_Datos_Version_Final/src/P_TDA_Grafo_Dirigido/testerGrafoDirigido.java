@@ -38,7 +38,7 @@ public class testerGrafoDirigido {
 				salto();	
 		} catch (InvalidVertexException e1) {
 			System.out.println(e1.getMessage());
-		}
+		}	
 	}
 
 	private static void imprimir(String string) {
