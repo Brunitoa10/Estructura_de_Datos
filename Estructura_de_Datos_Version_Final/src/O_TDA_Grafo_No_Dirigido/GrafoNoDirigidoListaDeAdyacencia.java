@@ -2,14 +2,7 @@ package O_TDA_Grafo_No_Dirigido;
 
 import java.util.Iterator;
 
-import A_Excepciones.BoundaryViolationException;
-import A_Excepciones.EmptyListException;
-import A_Excepciones.EmptyQueueException;
-import A_Excepciones.EmptyStackException;
-import A_Excepciones.InvalidEdgeException;
-import A_Excepciones.InvalidKeyException;
-import A_Excepciones.InvalidPositionException;
-import A_Excepciones.InvalidVertexException;
+import A_Excepciones.*;
 import B_TDA_Pila.PilaEnlazada;
 import B_TDA_Pila.Stack;
 import C_TDA_Cola.ColaEnlazada;
@@ -442,7 +435,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			for(Vertex<V> v : this.vertices()) {
 				visitados.put(v, false);
 			}
-			listResultado = todosLosCaminosAux(origen,destino,visitados,listResultado);
+			todosLosCaminosAux(origen,destino,visitados,listResultado);
 		} catch (InvalidKeyException e) {
 			System.out.println(e.getMessage());
 		}
@@ -469,12 +462,62 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 					}
 				}
 			}
-			
 		} catch (InvalidKeyException | InvalidVertexException | InvalidEdgeException e) {
 			System.out.println(e.getMessage());
 		}
 		
 		return listResultado;
 	}
-
+	
+	/* Ejercicio 5D
+	 *  
+	 * Modifique la solución dada en el inciso (b) para hallar al menos un camino de A a B
+	 * 
+	 * DFSPinchado --> Permite hallar un camino entre dos vertices origen y destino
+	 */
+	public PositionList<Vertex<V>> alMenosUnCamino(Vertex<V> origen, Vertex<V> destino){
+		// Creo un mapeo de los vertices donde almaceno si fueron visitados o no
+		Map<Vertex<V>,Boolean> visitados = new MapeoConListaDoblementeEnlazada<Vertex<V>,Boolean>();
+		//Creo una lista donde voy a almacenar el camino 
+		PositionList<Vertex<V>> listResultado = new listaDoblementeEnlazada<Vertex<V>>();
+	
+		try {
+			//Para cada vertice v del grafo, marcar a v como no visitado
+			for(Vertex<V> v : this.vertices()) {
+				visitados.put(v, false);
+			}
+			hallarCamino(origen,destino,visitados,listResultado);
+		} catch (InvalidKeyException e) {
+			System.out.println(e.getMessage());
+		}
+		return listResultado;
+	}
+	//Esta forma de programar no es estructurada dado que el return romple el flujo de ejecucion, pero funciona
+	private boolean hallarCamino(Vertex<V> origen, Vertex<V> destino, Map<Vertex<V>, Boolean> visitados,	PositionList<Vertex<V>> listResultado) {
+		//boolean encontre = false;
+		try {
+			visitados.put(origen, true);
+			listResultado.addLast(origen);
+				
+			if(origen == destino) {
+				return true;
+			}else {
+				//Para cada arco arc de los arcos incidentes del origen en g
+				for(Edge<E> arc : this.incidentEdges(origen)) {
+					//Obtener el vertice opuesto del vertice origen y el arco arc
+					Vertex<V> opuesto = this.opposite(origen, arc);
+					//Si el vertice opuesto no esta visitado
+					if(visitados.get(opuesto) == false) {
+						if(hallarCamino(opuesto,destino,visitados,listResultado)) {
+							return true;
+						}
+					}
+				}
+			}
+			listResultado.remove(listResultado.last());
+		} catch (InvalidKeyException | InvalidVertexException | InvalidEdgeException | InvalidPositionException | EmptyListException  e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
 }

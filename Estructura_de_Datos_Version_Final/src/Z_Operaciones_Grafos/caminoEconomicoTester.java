@@ -13,7 +13,51 @@ public class caminoEconomicoTester<V, E> {
 		System.out.println();
 		System.out.println();
 	}
+	private static void testerCompleto4(GrafoNoDirigidoListaDeAdyacencia<String, Integer> g) {
+		try {
+			//Creo los vertices
+			Vertex<String> origen = g.insertVertex("Origen");
+			Vertex<String> nodoA = g.insertVertex("nodo(A)");
+			Vertex<String> nodoB = g.insertVertex("nodo(B)");
+			Vertex<String> nodoC = g.insertVertex("nodo(C)");
+			Vertex<String> nodoE = g.insertVertex("nodo(E)");
+			Vertex<String> nodoF = g.insertVertex("nodo(F)");
+			Vertex<String> destino = g.insertVertex("Destino");
+		
+			//Creo los arcos
+			g.insertEdge(origen, nodoA, 1);
+			g.insertEdge(origen, nodoB, 4);
+			g.insertEdge(nodoB, nodoF, 3);
+			
+			g.insertEdge(nodoB, destino, 5);
+			
+			g.insertEdge(nodoA, nodoC, 2);
+			g.insertEdge(nodoF, destino, 5);
+			g.insertEdge(nodoC, nodoE, 1);
+			g.insertEdge(nodoE, destino, 2);
+			
+			PositionList<Vertex<String>> list = g.alMenosUnCamino(origen, destino);
+			
 
+			/* Resultado esperado
+			 * 
+			 * 
+			 * 
+			 */
+			
+			if(list.size() == 0) {
+				System.out.println("oh! Algo salio mal");
+			}else {
+				Iterable<Position<Vertex<String>>> run = list.positions();
+				for (Position<Vertex<String>> position : run) {
+					System.out.print(" ---> "+position.element().element());
+				}
+			}
+				
+		} catch (InvalidVertexException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	private static void testerCompleto3(GrafoNoDirigidoListaDeAdyacencia<String, Integer> g) {
 		try {
 			//Creo los vertices
@@ -191,6 +235,10 @@ public class caminoEconomicoTester<V, E> {
 		imprimir("Testeando Todos los caminos");
 			salto();
 		testerCompleto3(g);
+			salto();
+		imprimir("Testeando Al menos un camino");
+			salto();
+		testerCompleto4(g);
 	}
 
 	
