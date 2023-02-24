@@ -212,13 +212,41 @@ public class GrafoDirigidoListaDeAdyacencia<V, E> implements GraphDirigido<V, E>
 	 * Escriba un método que, dado un rótulo R y un digrafo G, encuentre el primer vértice cuyo	rótulo es R.
 	 * 
 	 */
-	public boolean buscarRotulo(E x) {
+	public boolean buscarRotulo(V rot) {
 		boolean encontre = false;
-		Iterator<EdgeD<E>> it = this.edges().iterator(); 
+		Iterator<VertexD<V>> it = this.vertices().iterator(); 
 
 		while(!encontre && it.hasNext()) {
-			encontre = (it.next().element() == x) ? true : false;
+			encontre = (it.next().element() == rot) ? true : false;
 		}
 		return encontre;
+	}
+	
+	/*	Ejercicio 6D
+	 * 
+	 * Escriba un método que reciba un digrafo G y el rótulo R de un vértice, y que elimine de G todos los vértices que encuentre 
+	 * con rótulo R.
+	 * 
+	 */
+	
+	public boolean eliminarVeticesConRotulosR(V rot) throws InvalidVertexException{
+		int apariciones = 0;
+		int eliminaciones = 0;
+		
+		for(VertexD<V> vert : this.vertices()) {
+			if(vert.element().equals(rot)) {
+				apariciones++;
+			}
+		}
+		
+		apariciones = (apariciones == 0) ? -1 : apariciones;
+		
+		for(VertexD<V> vert : this.vertices()) {
+			if(vert.element().equals(rot)) {
+				this.removeVertex(vert);
+				eliminaciones++;
+			}
+		}
+		return apariciones == eliminaciones;
 	}
 }
