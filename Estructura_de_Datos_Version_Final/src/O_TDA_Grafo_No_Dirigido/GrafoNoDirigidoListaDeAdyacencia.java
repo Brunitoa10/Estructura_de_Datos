@@ -348,12 +348,11 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		PositionList<Vertex<V>> list = new listaDoblementeEnlazada<Vertex<V>>();
 		
 		try {
-				//Para cada vertice v del grafo, marcar a v como no visitado
-				for(Vertex<V> v : this.vertices()) {
-					visitados.put(v, false);
-				}
-				list = caminoMasCortoAux(origen,destino,visitados,list);
-			
+			//Para cada vertice v del grafo, marcar a v como no visitado
+			for(Vertex<V> v : this.vertices()) {
+				visitados.put(v, false);
+			}
+			list = caminoMasCortoAux(origen,destino,visitados,list);		
 		} catch (InvalidKeyException e) {
 			System.out.println(e.getMessage());
 		}
@@ -374,7 +373,7 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 			cola.enqueue(origen);
 			visitados.put(origen, true);
 			
-			//Mientras halla elementos en la cola y no encuentre el elemento
+			//Mientras haya elementos en la cola y no encuentre el elemento
 			while(!cola.isEmpty() && !encontre) {
 				tmp = cola.dequeue();
 				if(tmp == destino) {
@@ -425,4 +424,57 @@ public class GrafoNoDirigidoListaDeAdyacencia<V, E> implements GraphNoDirigido<V
 		
 		return list;
 	}
+	
+	/* Ejercicio 5C
+	 *  
+	 * Modifique la solución dada en el inciso (b) para hallar todos los caminos de A a B
+	 * 
+	 * BFSsearch para hallar caminos
+	 */
+	public PositionList<Vertex<V>> todosLosCaminos(Vertex<V> origen, Vertex<V> destino){
+		// Creo un mapeo de los vertices donde almaceno si fueron visitados o no
+		Map<Vertex<V>,Boolean> visitados = new MapeoConListaDoblementeEnlazada<Vertex<V>,Boolean>();
+		//Creo una lista donde voy a almacenar el camino 
+		PositionList<Vertex<V>> listResultado = new listaDoblementeEnlazada<Vertex<V>>();
+		
+		try {
+			//Para cada vertice v del grafo, marcar a v como no visitado
+			for(Vertex<V> v : this.vertices()) {
+				visitados.put(v, false);
+			}
+			listResultado = todosLosCaminosAux(origen,destino,visitados,listResultado);
+		} catch (InvalidKeyException e) {
+			System.out.println(e.getMessage());
+		}
+		return listResultado;
+	}
+
+	private PositionList<Vertex<V>> todosLosCaminosAux(Vertex<V> origen, Vertex<V> destino, Map<Vertex<V>, Boolean> visitados, PositionList<Vertex<V>> listResultado) {
+		Par<V> listTmp = new Par(); 
+		try {
+			listResultado.addLast(origen);
+			visitados.put(origen, true);
+			
+			if(origen == destino) {
+				listTmp.setCamino_minimo(clonar(listResultado));
+				visitados.put(destino, false);
+			}else {
+				//Para cada arco arc de los arcos incidentes del origen en g
+				for(Edge<E> arc : this.incidentEdges(origen)) {
+					//Obtener el vertice opuesto del vertice origen y el arco arc
+					Vertex<V> opuesto = this.opposite(origen, arc);
+					//Si el vertice opuesto no esta visitado
+					if(visitados.get(opuesto) == false) {
+						todosLosCaminosAux(opuesto,destino,visitados,listResultado);
+					}
+				}
+			}
+			
+		} catch (InvalidKeyException | InvalidVertexException | InvalidEdgeException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return listResultado;
+	}
+
 }
