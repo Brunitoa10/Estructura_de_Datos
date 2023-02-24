@@ -181,8 +181,8 @@ public class GrafoDirigidoListaDeAdyacencia<V, E> implements GraphDirigido<V, E>
 	 * 
 	 * @param VertexD v
 	 * @throws InvalidVertexException
-	 * @returns Metodo que controla si el vertice es nulo y devuelve el vertice
-	 *          casteado
+	 * @returns Metodo que controla si el vertice es nulo y devuelve el vertice casteado
+	 * 
 	 */
 	private VerticeD<V, E> checkVertex(VertexD<V> v) throws InvalidVertexException {
 		if (v == null) {
@@ -203,5 +203,22 @@ public class GrafoDirigidoListaDeAdyacencia<V, E> implements GraphDirigido<V, E>
 			throw new InvalidEdgeException("El edge recibido es nulo");
 		}
 		return (ArcoD<V, E>) e;
+	}
+	
+	//Ejercicios
+	
+	/*	Ejercicio 6B
+	 * 
+	 * Escriba un método que, dado un rótulo R y un digrafo G, encuentre el primer vértice cuyo	rótulo es R.
+	 * 
+	 */
+	public boolean buscarRotulo(E x) {
+		boolean encontre = false;
+		Iterator<EdgeD<E>> it = this.edges().iterator(); 
+
+		while(!encontre && it.hasNext()) {
+			encontre = (it.next().element() == x) ? true : false;
+		}
+		return encontre;
 	}
 }
