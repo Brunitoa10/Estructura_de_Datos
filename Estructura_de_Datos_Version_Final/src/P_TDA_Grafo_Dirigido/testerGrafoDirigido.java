@@ -75,6 +75,39 @@ public class testerGrafoDirigido {
 		}	
 	}
 	
+	private static void ejercicio6E(GrafoDirigidoListaDeAdyacencia<String, Integer> g) {
+		try {
+			VertexD<String> a = g.insertVertex("A");
+			VertexD<String> b = g.insertVertex("B");
+			VertexD<String> c = g.insertVertex("C");
+			VertexD<String> d = g.insertVertex("D");
+			VertexD<String> e = g.insertVertex("E");
+			VertexD<String> f = g.insertVertex("F");
+			
+			
+			g.insertEdge(a, b, 4);
+			g.insertEdge(a, c, 2);
+			g.insertEdge(c, b, 4);
+			g.insertEdge(c, d, 8);
+			g.insertEdge(b, d, 5);
+			g.insertEdge(c, e, 10);
+			g.insertEdge(d, e, 2);
+			g.insertEdge(e, f, 3);
+			g.insertEdge(d, f, 6);
+			
+			imprimir("Testeando esListaConCabezaA");
+				salto();
+			imprimir("Rotulo A es cabeza de lista --> "+g.esListaConCabezaA(a));
+				salto();
+			imprimir("Rotulo B es cabeza de lista --> "+g.esListaConCabezaA(b));
+				salto();	
+			imprimir("Rotulo F es cabeza de lista --> "+g.esListaConCabezaA(f));
+				salto();
+		} catch (InvalidVertexException e1) {
+			System.out.println(e1.getMessage());
+		}	
+	}
+	
 	private static void imprimir(String string) {
 		System.out.print(string);
 	}
@@ -88,5 +121,6 @@ public class testerGrafoDirigido {
 		GrafoDirigidoListaDeAdyacencia<String, Integer> g = new GrafoDirigidoListaDeAdyacencia<String, Integer>();
 		ejercicio6B(g);
 		ejercicio6D(g);
+		ejercicio6E(g);
 	}
 }

@@ -1,7 +1,14 @@
 package P_TDA_Grafo_Dirigido;
 
 import A_Excepciones.*;
+import B_TDA_Pila.PilaEnlazada;
+import B_TDA_Pila.Stack;
+import C_TDA_Cola.*;
 import D_TDA_Lista.*;
+import F_TDA_Mapeo.*;
+import O_TDA_Grafo_No_Dirigido.Edge;
+import O_TDA_Grafo_No_Dirigido.Vertex;
+
 import java.util.Iterator;
 
 public class GrafoDirigidoListaDeAdyacencia<V, E> implements GraphDirigido<V, E> {
@@ -249,4 +256,61 @@ public class GrafoDirigidoListaDeAdyacencia<V, E> implements GraphDirigido<V, E>
 		}
 		return apariciones == eliminaciones;
 	}
+
+	/*	Ejercicio 6E
+	 * 
+	 *  Escriba un método que reciba un digrafo G y un vértice A, y establezca si G es una lista cabeza A.
+	 * 
+	 */
+	public boolean esListaConCabezaA(VertexD<V> rot){
+		
+		// Creo un mapeo de los vertices donde almaceno si fueron visitados o no
+		Map<VertexD<V>,Boolean> visitados = new MapeoConListaDoblementeEnlazada<VertexD<V>,Boolean>();
+		
+		boolean resultado = false;
+		try {
+			//Para cada vertice v del grafo, marcar a v como no visitado
+			for(VertexD<V> v : this.vertices()) {
+				visitados.put(v, false);
+			}
+			resultado = BFSAux(rot,visitados);		
+		} catch (InvalidKeyException e) {
+			System.out.println(e.getMessage());
+		}
+		return resultado;
+	}
+
+	private boolean BFSAux(VertexD<V> rot, Map<VertexD<V>, Boolean> visitados) {
+		Queue<VertexD<V>> cola = new ColaEnlazada<VertexD<V>>();
+		VertexD<V> tmpVert = null;
+		VertexD<V> opuesto = null;
+		EdgeD<E> tmpArco = null;
+		try {
+			cola.enqueue(rot);
+			visitados.put(rot, true);
+			while(!cola.isEmpty()) {
+				tmpVert = cola.dequeue();
+				Iterator<EdgeD<E>> itAdyacentes = this.succesorEdges(tmpVert).iterator();
+				if(!itAdyacentes.hasNext()) {
+					tmpArco = itAdyacentes.next();
+					if(itAdyacentes.hasNext()) {
+						return false;
+					}else {
+						opuesto = this.opposite(tmpVert, tmpArco);
+						if(visitados.get(opuesto) == false) {
+							visitados.put(opuesto, true);
+							cola.enqueue(opuesto);
+						}else {
+							return false;
+						}
+					}
+				}
+			}
+		}catch(InvalidKeyException | InvalidVertexException | InvalidEdgeException | EmptyQueueException e) {
+			System.out.println(e.getMessage());
+		}
+		return true;
+	}
+	
+	
 }
