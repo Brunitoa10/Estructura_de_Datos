@@ -141,40 +141,45 @@ public class GrafoMatrizAdyacenciaNoDirigido<V,E> implements Graph<V,E> {
 		if(v == null || w == null) {
 			throw new InvalidVertexException("insertEdge(v,w,e) --> Error vertice V o W invalido.");
 		}
-		if(cantVertices == matriz.length) {
-			expandirMatriz();
-		}
+		
 		//Cargo arco en la matriz
 		VerticeM<V> vertA = (VerticeM<V>) v;
 		VerticeM<V> vertB = (VerticeM<V>) w;
 		int fila = 0;
 		int col = 0;
 		ArcoM<V,E> arco = null;
-		
 		try {
+			if(vertA.getIndice() >= matriz.length || vertB.getIndice() >= matriz[0].length || cantVertices >= matriz.length) {
+				System.out.println("Entre "+vertA.getIndice()+" "+vertB.getIndice()+" "+cantVertices+" "+matriz.length+" "+matriz[0].length);
+				expandirMatriz();
+				System.out.println("Entreee "+vertA.getIndice()+" "+vertB.getIndice()+" "+cantVertices+" "+matriz.length+" "+matriz[0].length);
+			}
 			fila = vertA.getIndice();
 			col = vertB.getIndice();
-			arco = new ArcoM<V,E>(e,vertA,vertB);
+			System.out.println("NO fila "+fila+" col "+col+" cantVertices "+cantVertices);
+			System.out.println("NO col "+col+" fila "+fila+" cantVertices "+cantVertices);
 			
+			arco = new ArcoM<V,E>(e,vertA,vertB);
 			//Como es una matriz no dirigida es simetrica
 			matriz[fila][col] = matriz[col][fila] = arco;
 			arcos.addLast(arco);
 			arco.setPosicionEnArcos(arcos.last());
+			
 		} catch (EmptyListException e1) {
 			System.out.println(e1.getMessage());
 		}
 		return arco;
 	}
-
+	
 	private void expandirMatriz() {
-		int n = matriz.length*2;
-		Edge<E>[][] nuevaMatriz = (Edge<E>[][]) new ArcoM[n][n];
-		for(int fila = 0; fila < cantVertices; fila++) {
-			for(int col = 0; col < cantVertices; col++) {
-				nuevaMatriz[fila][col] = matriz[fila][col];
-			}
+		Edge<E>[][] matriz_anterior = matriz.clone();
+		matriz = new ArcoM[matriz_anterior.length * 2][matriz_anterior.length * 2];
+
+		for (int fila = 0; fila < matriz_anterior.length; fila++) {
+			for (int col = 0; col < matriz_anterior[0].length; col++)
+				if (matriz_anterior[fila][col] != null)
+					matriz[fila][col] = matriz_anterior[fila][col];
 		}
-		matriz = nuevaMatriz;
 	}
 
 	@Override
