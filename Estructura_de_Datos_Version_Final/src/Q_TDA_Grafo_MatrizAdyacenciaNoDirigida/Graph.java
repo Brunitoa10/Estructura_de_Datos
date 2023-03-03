@@ -1,4 +1,4 @@
-package Q_TDA_Grafo_MatrizAdyacencia;
+package Q_TDA_Grafo_MatrizAdyacenciaNoDirigida;
 
 import A_Excepciones.*;
 import O_TDA_Grafo_No_Dirigido.Edge;
